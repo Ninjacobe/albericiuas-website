@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AlbericiUAS — Aerial Cinematography</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --paper:   #f4f1ec;
+  --parchment: #ede9e0;
+  --linen:   #e0dbd0;
+  --ash:     #b8b0a0;
+  --stone:   #7a7268;
+  --earth:   #4a4438;
+  --ink:     #1c1a16;
+  --umber:   #6b5c46;
+  --sage:    #8a9080;
+  --horizon: #c8bfb0;
+  --rule:    rgba(74,68,56,0.15);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 2rem 5vw;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+  mix-blend-mode: normal;
+}
+.nav-logo {
+  font-family: 'Jost', sans-serif;
+  font-weight: 400;
+  font-size: 0.85rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+}
+.nav-links {
+  display: flex; gap: 3rem; list-style: none;
+}
+.nav-links a {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--stone);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-cta {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  padding-bottom: 1px;
+  border-bottom: 1px solid var(--ink);
+  transition: color 0.3s, border-color 0.3s;
+}
+.nav-cta:hover { color: var(--umber); border-color: var(--umber); }
+
+/* ─── HERO ─── */
+#hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 80px;
+}
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 7vw 5vw 6vw;
+  border-right: 1px solid var(--rule);
+}
+.hero-eyebrow {
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  animation: riseIn 0.9s 0.2s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: clamp(3.2rem, 6vw, 6.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  opacity: 0;
+  animation: riseIn 1s 0.4s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--umber);
+}
+.hero-body {
+  margin-top: 2.5rem;
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: var(--stone);
+  max-width: 380px;
+  opacity: 0;
+  animation: riseIn 1s 0.6s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+.hero-actions {
+  margin-top: 3.5rem;
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  opacity: 0;
+  animation: riseIn 1s 0.8s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+.btn-dark {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 1rem 2.4rem;
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
+  transition: background 0.3s;
+}
+.btn-dark:hover { background: var(--earth); }
+.link-underline {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--stone);
+  text-decoration: none;
+  border-bottom: 1px solid var(--ash);
+  padding-bottom: 1px;
+  transition: color 0.3s, border-color 0.3s;
+}
+.link-underline:hover { color: var(--ink); border-color: var(--ink); }
+
+/* Hero right — cinematic image block */
+.hero-right {
+  position: relative;
+  background: var(--parchment);
+  overflow: hidden;
+  opacity: 0;
+  animation: fadeIn 1.2s 0.5s forwards;
+}
+.hero-img-fill {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Landscape scene painted in SVG — replaces placeholder */
+.hero-scene {
+  width: 100%; height: 100%;
+  position: absolute; inset: 0;
+}
+.hero-caption {
+  position: absolute;
+  bottom: 2rem; left: 2rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(244,241,236,0.7);
+}
+.hero-meta {
+  position: absolute;
+  top: 2rem; right: 2rem;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 0.4rem;
+}
+.hero-meta span {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(244,241,236,0.5);
+}
+
+/* ─── STATS ROW ─── */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.stat-cell {
+  padding: 2.5rem 5vw;
+  border-right: 1px solid var(--rule);
+}
+.stat-cell:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1;
+  display: block;
+}
+.stat-label {
+  display: block;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-top: 0.5rem;
+}
+
+/* ─── SECTION SHARED ─── */
+.section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 4rem 5vw 2.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+.section-kicker {
+  font-size: 0.65rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+.section-heading {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  color: var(--ink);
+  line-height: 1.1;
+}
+.section-heading em { font-style: italic; color: var(--umber); }
+
+/* ─── WORK GRID ─── */
+#work { background: var(--paper); }
+
+.filter-bar {
+  display: flex;
+  gap: 0;
+  padding: 0 5vw;
+  border-bottom: 1px solid var(--rule);
+  overflow-x: auto;
+}
+.filter-tab {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--stone);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 1.2rem 1.8rem 1.2rem 0;
+  margin-right: 1.5rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.25s, border-color 0.25s;
+  flex-shrink: 0;
+}
+.filter-tab.active { color: var(--ink); border-bottom-color: var(--ink); }
+.filter-tab:hover { color: var(--ink); }
+
+.grid-work {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.work-tile {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  aspect-ratio: 4/3;
+  background: var(--parchment);
+}
+.work-tile:nth-child(3n) { border-right: none; }
+.work-tile.wide {
+  grid-column: span 2;
+  aspect-ratio: 8/3;
+}
+
+/* Landscape scenes as SVG backgrounds */
+.tile-scene {
+  width: 100%; height: 100%;
+  display: block;
+  transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.work-tile:hover .tile-scene { transform: scale(1.03); }
+
+.tile-info {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.8rem 2rem;
+  background: linear-gradient(to top, rgba(28,26,22,0.75) 0%, rgba(28,26,22,0) 55%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.work-tile:hover .tile-info { opacity: 1; }
+.tile-always {
+  position: absolute;
+  bottom: 1.5rem; left: 2rem;
+}
+.tile-cat {
+  font-size: 0.58rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(244,241,236,0.65);
+  margin-bottom: 0.3rem;
+}
+.tile-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 1.15rem;
+  color: var(--paper);
+  line-height: 1.2;
+}
+.wide .tile-name { font-size: 1.5rem; }
+.tile-desc {
+  font-size: 0.78rem;
+  color: rgba(244,241,236,0.7);
+  margin-top: 0.4rem;
+  font-style: italic;
+  font-family: 'EB Garamond', serif;
+  line-height: 1.5;
+}
+.tile-play {
+  width: 44px; height: 44px;
+  border: 1px solid rgba(244,241,236,0.6);
+  display: flex; align-items: center; justify-content: center;
+  position: absolute;
+  top: 1.5rem; right: 1.5rem;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.35s, transform 0.35s;
+}
+.work-tile:hover .tile-play { opacity: 1; transform: scale(1); }
+
+/* ─── ABOUT ─── */
+#about { background: var(--parchment); }
+
+.about-layout {
+  display: grid;
+  grid-template-columns: 5fr 4fr;
+  min-height: 80vh;
+}
+.about-text {
+  padding: 6vw 5vw;
+  border-right: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+}
+.about-pull {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  line-height: 1.35;
+  color: var(--ink);
+  font-style: italic;
+  border-left: 2px solid var(--umber);
+  padding-left: 2rem;
+  margin-bottom: 1rem;
+}
+.about-body {
+  font-size: 0.93rem;
+  line-height: 1.9;
+  color: var(--stone);
+  max-width: 520px;
+}
+.about-body + .about-body { margin-top: 0; }
+
+.cert-row {
+  display: flex;
+  gap: 2.5rem;
+  margin-top: 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--rule);
+}
+.cert-item {}
+.cert-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ash);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+.cert-val {
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
+  color: var(--earth);
+}
+
+.about-visual {
+  background: var(--linen);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.about-visual svg {
+  width: 70%;
+  max-width: 340px;
+  opacity: 0.18;
+}
+.about-badge-block {
+  position: absolute;
+  bottom: 3rem;
+  left: 3rem;
+  right: 3rem;
+}
+.about-badge-block p {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--stone);
+  line-height: 1.8;
+}
+
+/* ─── SERVICES ─── */
+#services { background: var(--paper); }
+
+.services-list {
+  border-top: none;
+}
+.service-row {
+  display: grid;
+  grid-template-columns: 3rem 1fr 2fr 1fr;
+  align-items: start;
+  gap: 3rem;
+  padding: 3rem 5vw;
+  border-bottom: 1px solid var(--rule);
+  transition: background 0.3s;
+}
+.service-row:hover { background: var(--parchment); }
+.service-index {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--ash);
+  padding-top: 0.2rem;
+}
+.service-title-col {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 1.35rem;
+  color: var(--ink);
+  line-height: 1.2;
+}
+.service-title-col em { font-style: italic; display: block; font-size: 0.9em; color: var(--umber); }
+.service-desc-col {
+  font-size: 0.88rem;
+  line-height: 1.8;
+  color: var(--stone);
+}
+.service-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding-top: 0.2rem;
+}
+.tag {
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--linen);
+  color: var(--stone);
+}
+
+/* ─── CONTACT ─── */
+#contact { background: var(--parchment); }
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 70vh;
+}
+.contact-left {
+  padding: 6vw 5vw;
+  border-right: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.contact-intro {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+  line-height: 1.2;
+  color: var(--ink);
+  margin-bottom: 2.5rem;
+}
+.contact-intro em { font-style: italic; color: var(--umber); }
+.contact-detail-list {
+  display: flex; flex-direction: column; gap: 2rem;
+  margin-top: auto;
+}
+.contact-detail {}
+.contact-detail-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ash);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+.contact-detail a,
+.contact-detail p {
+  font-size: 0.92rem;
+  color: var(--ink);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.contact-detail a:hover { color: var(--umber); }
+
+.contact-right {
+  padding: 6vw 5vw;
+}
+.contact-right p.form-label-main {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-bottom: 2.5rem;
+}
+
+/* Form */
+.form-field {
+  margin-bottom: 0;
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+}
+.form-field:first-of-type { border-top: 1px solid var(--rule); }
+.form-field label {
+  display: block;
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ash);
+  padding: 1.2rem 0 0.3rem;
+  transition: color 0.3s;
+}
+.form-field:focus-within label { color: var(--umber); }
+.form-field input,
+.form-field textarea,
+.form-field select {
+  width: 100%;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: 'EB Garamond', serif;
+  font-size: 1.05rem;
+  color: var(--ink);
+  padding: 0.2rem 0 1rem;
+  line-height: 1.4;
+  -webkit-appearance: none;
+}
+.form-field select option { background: var(--parchment); }
+.form-field textarea { resize: none; height: 90px; }
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: var(--ash);
+  font-style: italic;
+}
+
+.form-row-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-bottom: 1px solid var(--rule);
+}
+.form-row-two .form-field {
+  border-bottom: none;
+}
+.form-row-two .form-field:first-child {
+  border-right: 1px solid var(--rule);
+  padding-right: 2rem;
+}
+.form-row-two .form-field:last-child {
+  padding-left: 2rem;
+}
+.form-row-two:first-of-type { border-top: 1px solid var(--rule); }
+
+.form-submit-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2.5rem;
+}
+.form-note {
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ash);
+}
+.btn-submit {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 400;
+  padding: 1rem 2.5rem;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.btn-submit:hover { background: var(--earth); }
+
+.form-success {
+  display: none;
+  padding: 3rem 0;
+  text-align: center;
+}
+.form-success.show { display: block; }
+.form-success p {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  color: var(--umber);
+}
+.form-success small {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ash);
+  margin-top: 0.6rem;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--ink);
+  padding: 3rem 5vw;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 2rem;
+}
+.footer-logo {
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--paper);
+}
+.footer-copy {
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--stone);
+  text-align: center;
+}
+.footer-links {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+  list-style: none;
+}
+.footer-links a {
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--stone);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-links a:hover { color: var(--paper); }
+
+/* ─── MODAL ─── */
+#modal {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(28,26,22,0.94);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+#modal.open { display: flex; }
+.modal-box {
+  width: 88%;
+  max-width: 960px;
+  background: var(--parchment);
+}
+.modal-media {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.modal-media-inner {
+  text-align: center;
+}
+.modal-media-inner svg {
+  width: 48px; opacity: 0.2;
+  color: var(--paper);
+  margin-bottom: 1rem;
+}
+.modal-media-inner p {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(244,241,236,0.35);
+}
+.modal-footer {
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--rule);
+}
+.modal-title-block {}
+.modal-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 1.3rem;
+  color: var(--ink);
+}
+.modal-cat {
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-top: 0.2rem;
+}
+.modal-close {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--stone);
+  background: none;
+  border: 1px solid var(--linen);
+  padding: 0.6rem 1.5rem;
+  cursor: pointer;
+  transition: border-color 0.3s, color 0.3s;
+}
+.modal-close:hover { border-color: var(--ink); color: var(--ink); }
+
+/* ─── ANIMATIONS ─── */
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 960px) {
+  #hero { grid-template-columns: 1fr; }
+  .hero-right { min-height: 50vw; }
+  .about-layout { grid-template-columns: 1fr; }
+  .about-visual { min-height: 40vw; }
+  .contact-layout { grid-template-columns: 1fr; }
+  .service-row { grid-template-columns: 2rem 1fr; gap: 1.5rem; }
+  .service-tags { display: none; }
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .stats-row .stat-cell:nth-child(2) { border-right: none; }
+  footer { grid-template-columns: 1fr; text-align: center; }
+  .footer-links { justify-content: center; }
+}
+@media (max-width: 680px) {
+  .grid-work { grid-template-columns: 1fr; }
+  .work-tile.wide { grid-column: span 1; aspect-ratio: 4/3; }
+  .nav-links { display: none; }
+  .section-header { flex-direction: column; gap: 0.5rem; }
+  .form-row-two { grid-template-columns: 1fr; border-bottom: none; }
+  .form-row-two .form-field:first-child { border-right: none; padding-right: 0; border-bottom: 1px solid var(--rule); }
+  .form-row-two .form-field:last-child { padding-left: 0; }
+  .service-row { grid-template-columns: 1fr; }
+  .service-index { display: none; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- Modal -->
+<div id="modal">
+  <div class="modal-box">
+    <div class="modal-media">
+      <div class="modal-media-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <polygon points="5 3 19 12 5 21 5 3"/>
+        </svg>
+        <p>Add your video embed here</p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="modal-title-block">
+        <div class="modal-title" id="modal-title"></div>
+        <div class="modal-cat" id="modal-cat"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Nav -->
+<nav>
+  <a class="nav-logo" href="#hero">AlbericiUAS</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">Inquire</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow" id="site-hero-eyebrow">Aerial Cinematography &amp; UAS Operations</p>
+    <h1 class="hero-title" id="site-hero-title">The world<br>looks different<br>from <em>above.</em></h1>
+    <p class="hero-body" id="site-hero-body">
+      Professional drone videography that captures landscapes, properties, and events with the patience and craft they deserve. Every flight planned. Every frame intentional.
+    </p>
+    <div class="hero-actions">
+      <a href="#work" class="btn-dark">View the Work</a>
+      <a href="#contact" class="link-underline">Request a Quote</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <!-- Landscape painted in SVG -->
+    <svg class="hero-scene" viewBox="0 0 800 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <!-- Sky -->
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#c8bfb0"/>
+          <stop offset="100%" stop-color="#e0d8cc"/>
+        </linearGradient>
+        <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#b0a898"/>
+          <stop offset="100%" stop-color="#c8c0b0"/>
+        </linearGradient>
+        <linearGradient id="land1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#7a7268"/>
+          <stop offset="100%" stop-color="#6b6358"/>
+        </linearGradient>
+        <linearGradient id="land2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#5a5248"/>
+          <stop offset="100%" stop-color="#4a4438"/>
+        </linearGradient>
+      </defs>
+      <rect width="800" height="700" fill="url(#sky)"/>
+      <!-- Distant mountains -->
+      <path d="M0 420 Q100 320 180 380 Q260 320 340 360 Q420 290 500 350 Q580 280 660 340 Q720 300 800 360 L800 700 L0 700Z" fill="#a09890" opacity="0.5"/>
+      <path d="M0 460 Q80 370 160 410 Q240 350 320 390 Q400 330 480 385 Q560 340 640 380 Q700 350 800 390 L800 700 L0 700Z" fill="url(#land1)" opacity="0.8"/>
+      <!-- Midground ridge -->
+      <path d="M0 510 Q120 470 220 490 Q340 465 440 485 Q560 460 680 480 Q740 470 800 478 L800 700 L0 700Z" fill="url(#land2)"/>
+      <!-- Foreground land -->
+      <path d="M0 580 Q200 560 400 570 Q600 555 800 565 L800 700 L0 700Z" fill="#3a342c"/>
+      <!-- Water reflection -->
+      <path d="M160 500 Q280 490 380 498 Q480 488 580 496 Q660 490 720 497 L720 530 Q660 525 580 528 Q480 522 380 528 Q280 523 160 530Z" fill="url(#water)" opacity="0.6"/>
+      <!-- Atmospheric haze lines -->
+      <line x1="0" y1="395" x2="800" y2="395" stroke="rgba(224,216,204,0.3)" stroke-width="1"/>
+      <line x1="0" y1="430" x2="800" y2="430" stroke="rgba(224,216,204,0.2)" stroke-width="0.5"/>
+      <!-- Drone silhouette -->
+      <g transform="translate(540, 200)" opacity="0.75">
+        <line x1="0" y1="0" x2="-32" y2="-18" stroke="#4a4438" stroke-width="1.5"/>
+        <line x1="0" y1="0" x2="32" y2="-18" stroke="#4a4438" stroke-width="1.5"/>
+        <line x1="0" y1="0" x2="-32" y2="18" stroke="#4a4438" stroke-width="1.5"/>
+        <line x1="0" y1="0" x2="32" y2="18" stroke="#4a4438" stroke-width="1.5"/>
+        <ellipse cx="-32" cy="-18" rx="18" ry="5" fill="none" stroke="#4a4438" stroke-width="1"/>
+        <ellipse cx="32" cy="-18" rx="18" ry="5" fill="none" stroke="#4a4438" stroke-width="1"/>
+        <ellipse cx="-32" cy="18" rx="18" ry="5" fill="none" stroke="#4a4438" stroke-width="1"/>
+        <ellipse cx="32" cy="18" rx="18" ry="5" fill="none" stroke="#4a4438" stroke-width="1"/>
+        <rect x="-9" y="-6" width="18" height="12" rx="2" fill="none" stroke="#4a4438" stroke-width="1"/>
+        <circle cx="0" cy="12" r="4" fill="none" stroke="#4a4438" stroke-width="1"/>
+      </g>
+      <!-- Cloud wisps -->
+      <ellipse cx="120" cy="120" rx="90" ry="18" fill="rgba(244,241,236,0.18)"/>
+      <ellipse cx="320" cy="80" rx="130" ry="22" fill="rgba(244,241,236,0.15)"/>
+      <ellipse cx="620" cy="140" rx="100" ry="16" fill="rgba(244,241,236,0.12)"/>
+    </svg>
+
+    <div class="hero-caption">Aerial — Pacific Northwest</div>
+    <div class="hero-meta">
+      <span>4K / Part 107</span>
+      <span>AlbericiUAS</span>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<div class="stats-row">
+  <div class="stat-cell reveal">
+    <span class="stat-num">4K</span>
+    <span class="stat-label">Cinema Resolution</span>
+  </div>
+  <div class="stat-cell reveal">
+    <span class="stat-num">FAA</span>
+    <span class="stat-label">Part 107 Certified</span>
+  </div>
+  <div class="stat-cell reveal">
+    <span class="stat-num">100+</span>
+    <span class="stat-label">Projects Completed</span>
+  </div>
+  <div class="stat-cell reveal">
+    <span class="stat-num">NW</span>
+    <span class="stat-label">Nationwide Travel</span>
+  </div>
+</div>
+
+<!-- Work -->
+<section id="work">
+  <div class="section-header">
+    <span class="section-kicker">Portfolio</span>
+    <h2 class="section-heading">Selected <em>Work</em></h2>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-tab active" onclick="doFilter('all',this)">All</button>
+    <button class="filter-tab" onclick="doFilter('real-estate',this)">Real Estate</button>
+    <button class="filter-tab" onclick="doFilter('cinematic',this)">Cinematic</button>
+    <button class="filter-tab" onclick="doFilter('events',this)">Events</button>
+    <button class="filter-tab" onclick="doFilter('commercial',this)">Commercial</button>
+  </div>
+
+  <div class="grid-work" id="grid-work">
+
+    <!-- Tile 1 — wide featured -->
+    <div class="work-tile wide reveal" data-cat="real-estate" onclick="openModal('Lakefront Estate', 'Real Estate')">
+      <svg class="tile-scene" viewBox="0 0 900 340" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="t1sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#8a9888"/>
+            <stop offset="60%" stop-color="#b8c0b0"/>
+            <stop offset="100%" stop-color="#c8c8b8"/>
+          </linearGradient>
+        </defs>
+        <rect width="900" height="340" fill="url(#t1sky)"/>
+        <path d="M0 220 Q150 180 280 200 Q420 170 560 190 Q680 165 900 185 L900 340 L0 340Z" fill="#6a7060" opacity="0.7"/>
+        <path d="M0 255 Q100 235 220 248 Q360 230 500 245 Q640 228 780 240 Q850 232 900 238 L900 340 L0 340Z" fill="#4a5040"/>
+        <path d="M0 290 Q200 275 400 282 Q600 268 900 278 L900 340 L0 340Z" fill="#3a3e30"/>
+        <!-- House -->
+        <rect x="380" y="210" width="80" height="50" fill="#c8c0a8" opacity="0.8"/>
+        <polygon points="370,210 460,210 415,180" fill="#a89880" opacity="0.8"/>
+        <!-- Dock -->
+        <rect x="200" y="268" width="4" height="30" fill="#8a8070" opacity="0.6"/>
+        <rect x="190" y="262" width="24" height="3" fill="#8a8070" opacity="0.6"/>
+        <!-- Water shimmer -->
+        <rect x="0" y="285" width="900" height="8" fill="rgba(180,188,180,0.25)"/>
+        <line x1="100" y1="288" x2="240" y2="288" stroke="rgba(220,220,210,0.3)" stroke-width="1"/>
+        <line x1="350" y1="290" x2="500" y2="290" stroke="rgba(220,220,210,0.25)" stroke-width="1"/>
+      </svg>
+      <div class="tile-always">
+        <div class="tile-cat">Real Estate</div>
+        <div class="tile-name">Lakefront Estate</div>
+      </div>
+      <div class="tile-info">
+        <div class="tile-cat">Real Estate · 4K · Golden Hour</div>
+        <div class="tile-name">Lakefront Estate</div>
+        <div class="tile-desc">Aerial property reveal with waterfront approach and twilight passes.</div>
+      </div>
+      <div class="tile-play">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(244,241,236,0.9)"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      </div>
+    </div>
+
+    <!-- Tile 2 -->
+    <div class="work-tile reveal" data-cat="cinematic" onclick="openModal('Ridge at First Light', 'Cinematic')">
+      <svg class="tile-scene" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="t2sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#a09080"/>
+            <stop offset="100%" stop-color="#c8b8a8"/>
+          </linearGradient>
+        </defs>
+        <rect width="400" height="300" fill="url(#t2sky)"/>
+        <path d="M0 180 Q60 120 120 155 Q180 100 240 140 Q300 90 360 130 Q380 118 400 125 L400 300 L0 300Z" fill="#6a6258" opacity="0.6"/>
+        <path d="M0 220 Q80 190 160 205 Q240 180 320 198 Q360 185 400 192 L400 300 L0 300Z" fill="#4a4438"/>
+        <path d="M0 265 Q120 250 240 258 Q340 245 400 255 L400 300 L0 300Z" fill="#3a342c"/>
+        <!-- Sun glow -->
+        <circle cx="300" cy="80" r="28" fill="rgba(220,200,160,0.35)"/>
+        <circle cx="300" cy="80" r="18" fill="rgba(220,200,160,0.5)"/>
+      </svg>
+      <div class="tile-always">
+        <div class="tile-cat">Cinematic</div>
+        <div class="tile-name">Ridge at First Light</div>
+      </div>
+      <div class="tile-info">
+        <div class="tile-cat">Cinematic · 4K</div>
+        <div class="tile-name">Ridge at First Light</div>
+        <div class="tile-desc">Sweeping panoramic orbit at dawn, mountain horizon.</div>
+      </div>
+      <div class="tile-play">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(244,241,236,0.9)"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      </div>
+    </div>
+
+    <!-- Tile 3 -->
+    <div class="work-tile reveal" data-cat="events" onclick="openModal('Harvest Festival', 'Events')">
+      <svg class="tile-scene" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+        <rect width="400" height="300" fill="#5a5248"/>
+        <rect x="0" y="200" width="400" height="100" fill="#3a342c"/>
+        <!-- Tents / marquees -->
+        <polygon points="80,200 120,160 160,200" fill="#c8b890" opacity="0.7"/>
+        <polygon points="180,200 220,155 260,200" fill="#c8b890" opacity="0.65"/>
+        <polygon points="260,200 300,162 340,200" fill="#c8b890" opacity="0.6"/>
+        <!-- People dots -->
+        <circle cx="100" cy="205" r="3" fill="#e0d8c8" opacity="0.5"/>
+        <circle cx="140" cy="207" r="2.5" fill="#e0d8c8" opacity="0.5"/>
+        <circle cx="200" cy="204" r="3" fill="#e0d8c8" opacity="0.5"/>
+        <circle cx="280" cy="206" r="2.5" fill="#e0d8c8" opacity="0.5"/>
+        <!-- Sky gradient -->
+        <rect width="400" height="200" fill="rgba(90,80,68,0)" opacity="0"/>
+        <path d="M0 0 L400 0 L400 120 Q200 100 0 120Z" fill="rgba(160,148,128,0.4)"/>
+      </svg>
+      <div class="tile-always">
+        <div class="tile-cat">Events</div>
+        <div class="tile-name">Harvest Festival</div>
+      </div>
+      <div class="tile-info">
+        <div class="tile-cat">Events · 4K</div>
+        <div class="tile-name">Harvest Festival</div>
+        <div class="tile-desc">Crowd scale and site layout from altitude.</div>
+      </div>
+      <div class="tile-play">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(244,241,236,0.9)"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      </div>
+    </div>
+
+    <!-- Tile 4 -->
+    <div class="work-tile reveal" data-cat="commercial" onclick="openModal('Construction Progress', 'Commercial')">
+      <svg class="tile-scene" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+        <rect width="400" height="300" fill="#8a8a7a"/>
+        <!-- Grid / site map -->
+        <rect x="40" y="40" width="320" height="220" fill="none" stroke="rgba(224,216,200,0.25)" stroke-width="1"/>
+        <line x1="40" y1="110" x2="360" y2="110" stroke="rgba(224,216,200,0.15)" stroke-width="0.5"/>
+        <line x1="40" y1="180" x2="360" y2="180" stroke="rgba(224,216,200,0.15)" stroke-width="0.5"/>
+        <line x1="160" y1="40" x2="160" y2="260" stroke="rgba(224,216,200,0.15)" stroke-width="0.5"/>
+        <line x1="280" y1="40" x2="280" y2="260" stroke="rgba(224,216,200,0.15)" stroke-width="0.5"/>
+        <!-- Building footprints -->
+        <rect x="60" y="55" width="80" height="40" fill="rgba(180,170,148,0.6)"/>
+        <rect x="180" y="120" width="80" height="45" fill="rgba(180,170,148,0.5)"/>
+        <rect x="60" y="190" width="60" height="50" fill="rgba(180,170,148,0.4)"/>
+        <!-- Crane -->
+        <line x1="310" y1="260" x2="310" y2="100" stroke="rgba(220,210,190,0.5)" stroke-width="2"/>
+        <line x1="310" y1="100" x2="360" y2="100" stroke="rgba(220,210,190,0.4)" stroke-width="1.5"/>
+        <line x1="310" y1="100" x2="275" y2="100" stroke="rgba(220,210,190,0.4)" stroke-width="1.5"/>
+        <line x1="355" y1="100" x2="355" y2="140" stroke="rgba(220,210,190,0.3)" stroke-width="1"/>
+      </svg>
+      <div class="tile-always">
+        <div class="tile-cat">Commercial</div>
+        <div class="tile-name">Construction Progress</div>
+      </div>
+      <div class="tile-info">
+        <div class="tile-cat">Commercial · 4K</div>
+        <div class="tile-name">Construction Progress</div>
+        <div class="tile-desc">Weekly site documentation and orthomosaic mapping.</div>
+      </div>
+      <div class="tile-play">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(244,241,236,0.9)"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      </div>
+    </div>
+
+    <!-- Tile 5 -->
+    <div class="work-tile reveal" data-cat="cinematic" onclick="openModal('Coastal Passage', 'Cinematic')">
+      <svg class="tile-scene" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="t5" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#788090"/>
+            <stop offset="50%" stop-color="#a0a8b0"/>
+            <stop offset="100%" stop-color="#c0c8c8"/>
+          </linearGradient>
+        </defs>
+        <rect width="400" height="300" fill="url(#t5)"/>
+        <!-- Sea -->
+        <path d="M0 180 Q100 165 200 175 Q300 162 400 170 L400 300 L0 300Z" fill="#5a6870" opacity="0.8"/>
+        <path d="M0 210 Q80 195 180 205 Q280 192 400 200 L400 300 L0 300Z" fill="#485860"/>
+        <!-- Cliffs -->
+        <path d="M0 230 Q40 200 80 225 L80 300 L0 300Z" fill="#786858"/>
+        <path d="M320 300 L320 210 Q360 195 400 215 L400 300Z" fill="#786858"/>
+        <!-- Wave lines -->
+        <path d="M60 185 Q120 180 180 185" stroke="rgba(220,228,228,0.3)" fill="none" stroke-width="1"/>
+        <path d="M220 178 Q280 173 340 178" stroke="rgba(220,228,228,0.25)" fill="none" stroke-width="1"/>
+      </svg>
+      <div class="tile-always">
+        <div class="tile-cat">Cinematic</div>
+        <div class="tile-name">Coastal Passage</div>
+      </div>
+      <div class="tile-info">
+        <div class="tile-cat">Cinematic · 4K</div>
+        <div class="tile-name">Coastal Passage</div>
+        <div class="tile-desc">Low-altitude cliff traverse at blue hour.</div>
+      </div>
+      <div class="tile-play">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(244,241,236,0.9)"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      </div>
+    </div>
+
+    <!-- Tile 6 -->
+    <div class="work-tile reveal" data-cat="real-estate" onclick="openModal('Mountain Lodge', 'Real Estate')">
+      <svg class="tile-scene" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="t6" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#b0b8c0"/>
+            <stop offset="100%" stop-color="#d0d0c8"/>
+          </linearGradient>
+        </defs>
+        <rect width="400" height="300" fill="url(#t6)"/>
+        <!-- Pine trees silhouette -->
+        <path d="M0 280 L0 200 Q20 180 30 200 Q40 160 50 200 Q60 170 70 200 L70 280Z" fill="#4a5040"/>
+        <path d="M330 280 L330 195 Q350 175 360 195 Q370 160 380 195 Q390 170 400 195 L400 280Z" fill="#4a5040"/>
+        <!-- Lodge -->
+        <rect x="150" y="195" width="100" height="65" fill="#c8b8a0" opacity="0.85"/>
+        <polygon points="140,195 260,195 200,155" fill="#a89070" opacity="0.85"/>
+        <!-- Snow on roof -->
+        <path d="M140 195 Q200 188 260 195 Q200 159 140 195Z" fill="rgba(240,240,238,0.5)"/>
+        <!-- Snowy ground -->
+        <path d="M0 262 Q100 255 200 260 Q300 252 400 258 L400 300 L0 300Z" fill="rgba(240,240,238,0.6)"/>
+        <!-- Trees mid -->
+        <path d="M100 260 Q110 235 120 260Z" fill="#4a5040" opacity="0.8"/>
+        <path d="M280 255 Q290 228 300 255Z" fill="#4a5040" opacity="0.8"/>
+      </svg>
+      <div class="tile-always">
+        <div class="tile-cat">Real Estate</div>
+        <div class="tile-name">Mountain Lodge</div>
+      </div>
+      <div class="tile-info">
+        <div class="tile-cat">Real Estate · 4K</div>
+        <div class="tile-name">Mountain Lodge</div>
+        <div class="tile-desc">Winter property reveal through alpine canopy.</div>
+      </div>
+      <div class="tile-play">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(244,241,236,0.9)"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      </div>
+    </div>
+
+  </div><!-- /grid-work -->
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="section-header reveal">
+    <span class="section-kicker">Studio</span>
+    <h2 class="section-heading">About <em>AlbericiUAS</em></h2>
+  </div>
+  <div class="about-layout">
+    <div class="about-text reveal">
+      <blockquote class="about-pull" id="site-about-pull">
+        "The most powerful images are the ones that show you a place you know, in a way you've never seen it."
+      </blockquote>
+      <p class="about-body" id="site-about-body1">
+        AlbericiUAS is a professional UAS (unmanned aerial systems) operation focused on cinematic-quality aerial videography and photography. Every project begins with a conversation about what you're trying to communicate — and ends with footage that says it clearly.
+      </p>
+      <p class="about-body" id="site-about-body2">
+        We operate under FAA Part 107 certification and coordinate with ATC for controlled airspace access, night waivers, and beyond-visual-line-of-sight operations when the project requires it. Fully insured. Equipment maintained to manufacturer specification.
+      </p>
+      <div class="cert-row">
+        <div class="cert-item">
+          <span class="cert-label">Certification</span>
+          <span class="cert-val">FAA Part 107</span>
+        </div>
+        <div class="cert-item">
+          <span class="cert-label">Insurance</span>
+          <span class="cert-val">Fully Insured</span>
+        </div>
+        <div class="cert-item">
+          <span class="cert-label">Format</span>
+          <span class="cert-val">4K / 6K Cinema</span>
+        </div>
+        <div class="cert-item">
+          <span class="cert-label">Operations</span>
+          <span class="cert-val">Day · Night · LiDAR</span>
+        </div>
+      </div>
+    </div>
+    <div class="about-visual">
+      <!-- Drone top-down diagram, very restrained -->
+      <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="150" y1="150" x2="60" y2="60" stroke="#4a4438" stroke-width="1.5"/>
+        <line x1="150" y1="150" x2="240" y2="60" stroke="#4a4438" stroke-width="1.5"/>
+        <line x1="150" y1="150" x2="60" y2="240" stroke="#4a4438" stroke-width="1.5"/>
+        <line x1="150" y1="150" x2="240" y2="240" stroke="#4a4438" stroke-width="1.5"/>
+        <circle cx="60" cy="60" r="30" stroke="#4a4438" stroke-width="1"/>
+        <circle cx="240" cy="60" r="30" stroke="#4a4438" stroke-width="1"/>
+        <circle cx="60" cy="240" r="30" stroke="#4a4438" stroke-width="1"/>
+        <circle cx="240" cy="240" r="30" stroke="#4a4438" stroke-width="1"/>
+        <circle cx="60" cy="60" r="6" fill="#4a4438"/>
+        <circle cx="240" cy="60" r="6" fill="#4a4438"/>
+        <circle cx="60" cy="240" r="6" fill="#4a4438"/>
+        <circle cx="240" cy="240" r="6" fill="#4a4438"/>
+        <rect x="126" y="126" width="48" height="48" rx="3" stroke="#4a4438" stroke-width="1.5"/>
+        <circle cx="150" cy="150" r="14" stroke="#4a4438" stroke-width="1"/>
+        <circle cx="150" cy="150" r="6" fill="#4a4438"/>
+      </svg>
+      <div class="about-badge-block">
+        <p>
+          Aerial cinematography requires equal parts technical discipline and artistic judgment.
+          That's what we bring to every flight.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services -->
+<section id="services">
+  <div class="section-header reveal">
+    <span class="section-kicker">Capabilities</span>
+    <h2 class="section-heading">What We <em>Do</em></h2>
+  </div>
+  <div class="services-list">
+
+    <div class="service-row reveal">
+      <span class="service-index">01</span>
+      <div class="service-title-col">Real Estate<em>Photography &amp; Video</em></div>
+      <p class="service-desc-col">Aerial tours that show a property in its full context — lot shape, water access, neighbourhood, views. Timed for golden hour or twilight when the light rewards patience.</p>
+      <div class="service-tags">
+        <span class="tag">Residential</span>
+        <span class="tag">Commercial</span>
+        <span class="tag">Twilight</span>
+      </div>
+    </div>
+
+    <div class="service-row reveal">
+      <span class="service-index">02</span>
+      <div class="service-title-col">Cinematic<em>Film &amp; Documentary</em></div>
+      <p class="service-desc-col">Narrative aerial sequences for films, brand films, and travel content. Custom shot lists, multi-day productions, colour-graded deliverables in your preferred codec.</p>
+      <div class="service-tags">
+        <span class="tag">Film</span>
+        <span class="tag">Brand</span>
+        <span class="tag">Tourism</span>
+      </div>
+    </div>
+
+    <div class="service-row reveal">
+      <span class="service-index">03</span>
+      <div class="service-title-col">Events<em>Coverage &amp; Documentation</em></div>
+      <p class="service-desc-col">Weddings, festivals, and corporate gatherings captured from altitude. Waiver-coordinated for controlled airspace. Crowd scale and site energy made legible.</p>
+      <div class="service-tags">
+        <span class="tag">Weddings</span>
+        <span class="tag">Festivals</span>
+        <span class="tag">Corporate</span>
+      </div>
+    </div>
+
+    <div class="service-row reveal">
+      <span class="service-index">04</span>
+      <div class="service-title-col">Commercial<em>Survey &amp; Inspection</em></div>
+      <p class="service-desc-col">Construction progress documentation, infrastructure inspection, and agricultural mapping. Orthomosaic outputs, 3D point clouds, and digital elevation models delivered survey-ready.</p>
+      <div class="service-tags">
+        <span class="tag">Mapping</span>
+        <span class="tag">Inspection</span>
+        <span class="tag">LiDAR</span>
+      </div>
+    </div>
+
+    <div class="service-row reveal">
+      <span class="service-index">05</span>
+      <div class="service-title-col">Time-Lapse<em>Hyperlapse &amp; Progress</em></div>
+      <p class="service-desc-col">Fixed-point and moving aerial time-lapses for construction, seasonal change, tidal sequences, and atmospheric events. Delivered as rendered sequences or source stacks.</p>
+      <div class="service-tags">
+        <span class="tag">Construction</span>
+        <span class="tag">Seasonal</span>
+        <span class="tag">Hyperlapse</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="section-header reveal">
+    <span class="section-kicker">Contact</span>
+    <h2 class="section-heading">Start a <em>Conversation</em></h2>
+  </div>
+  <div class="contact-layout">
+    <div class="contact-left reveal">
+      <p class="contact-intro">
+        Tell us about your project.<br>We'll figure out the right<br>approach <em>together.</em>
+      </p>
+      <div class="contact-detail-list">
+        <div class="contact-detail">
+          <span class="contact-detail-label">Email</span>
+          <a href="mailto:info@albericiuas.com" id="site-contact-email">info@albericiuas.com</a>
+        </div>
+        <div class="contact-detail">
+          <span class="contact-detail-label">Phone</span>
+          <a href="tel:+15555550100" id="site-contact-phone">(555) 555-0100</a>
+        </div>
+        <div class="contact-detail">
+          <span class="contact-detail-label">Service Area</span>
+          <p id="site-contact-area">Regional &amp; Nationwide Travel</p>
+        </div>
+        <div class="contact-detail">
+          <span class="contact-detail-label">Booking Lead Time</span>
+          <p id="site-contact-lead">2–4 weeks recommended</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-right reveal">
+      <p class="form-label-main">Inquiry Form</p>
+      <form id="contact-form" onsubmit="handleSubmit(event)" novalidate>
+
+        <div class="form-row-two">
+          <div class="form-field">
+            <label for="f-name">Name</label>
+            <input type="text" id="f-name" placeholder="Your name" required>
+          </div>
+          <div class="form-field">
+            <label for="f-email">Email</label>
+            <input type="email" id="f-email" placeholder="your@email.com" required>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="f-service">Project Type</label>
+          <select id="f-service" required>
+            <option value="" disabled selected>Select a service…</option>
+            <option>Real Estate</option>
+            <option>Cinematic / Film</option>
+            <option>Events &amp; Weddings</option>
+            <option>Commercial / Survey</option>
+            <option>Time-Lapse</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="form-row-two">
+          <div class="form-field">
+            <label for="f-location">Location</label>
+            <input type="text" id="f-location" placeholder="City or region">
+          </div>
+          <div class="form-field">
+            <label for="f-date">Approximate Date</label>
+            <input type="text" id="f-date" placeholder="Month / Year">
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="f-message">Project Details</label>
+          <textarea id="f-message" placeholder="Tell us what you have in mind…" required></textarea>
+        </div>
+
+        <div class="form-submit-row">
+          <span class="form-note">AlbericiUAS · FAA Part 107</span>
+          <button type="submit" class="btn-submit">Send Inquiry</button>
+        </div>
+      </form>
+      <div class="form-success" id="form-success">
+        <p>Thank you — we'll be in touch within 24 hours.</p>
+        <small>AlbericiUAS · info@albericiuas.com</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <span class="footer-logo">AlbericiUAS</span>
+  <span class="footer-copy" id="site-footer-copy">© 2026 AlbericiUAS &nbsp;·&nbsp; FAA Part 107 Certified &nbsp;·&nbsp; All Rights Reserved</span>
+  <ul class="footer-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</footer>
+
+<script type="module" src="./src/site.js"></script>
+<script>
+// Filter
+function doFilter(cat, btn) {
+  document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.work-tile').forEach(tile => {
+    const match = cat === 'all' || tile.dataset.cat === cat;
+    tile.style.display = match ? '' : 'none';
+  });
+}
+
+// Modal
+function openModal(title, cat) {
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-cat').textContent = cat;
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// Form
+function handleSubmit(e) {
+  e.preventDefault();
+  document.getElementById('contact-form').style.display = 'none';
+  document.getElementById('form-success').classList.add('show');
+}
+
+// Scroll reveal
+const io = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if (en.isIntersecting) {
+      en.target.classList.add('visible');
+      io.unobserve(en.target);
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

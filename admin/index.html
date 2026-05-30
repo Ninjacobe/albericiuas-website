@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AlbericiUAS Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #f4f1ec; --surface: #fff; --surface2: #f8f6f2; --border: rgba(74,68,56,0.12);
+  --border-focus: #4a4438; --ink: #1c1a16; --stone: #7a7268; --ash: #b8b0a0;
+  --earth: #4a4438; --success: #4a7a5c; --error: #9a4a3a;
+}
+html { font-size: 14px; }
+body { background: var(--bg); color: var(--ink); font-family: 'Jost',sans-serif; font-weight: 300; min-height: 100vh; display: flex; flex-direction: column; }
+.topbar { background: var(--earth); color: #f4f1ec; display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 52px; }
+.topbar-brand { font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 400; }
+.topbar-brand span { color: rgba(244,241,236,0.5); font-weight: 300; margin-left: 0.5rem; }
+.btn-preview { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(244,241,236,0.7); text-decoration: none; border: 1px solid rgba(244,241,236,0.2); padding: 0.45rem 1rem; transition: color 0.2s, border-color 0.2s; }
+.btn-preview:hover { color: #f4f1ec; border-color: rgba(244,241,236,0.5); }
+.layout { display: flex; flex: 1; min-height: 0; }
+.sidebar { width: 220px; background: var(--surface); border-right: 1px solid var(--border); padding: 1.5rem 0; flex-shrink: 0; display: flex; flex-direction: column; gap: 0.15rem; }
+.nav-section-label { font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ash); padding: 0.8rem 1.5rem 0.4rem; margin-top: 0.5rem; }
+.nav-item { display: flex; align-items: center; gap: 0.7rem; padding: 0.65rem 1.5rem; font-size: 0.82rem; letter-spacing: 0.04em; color: var(--stone); cursor: pointer; transition: background 0.15s, color 0.15s; border: none; background: none; width: 100%; text-align: left; }
+.nav-item:hover { background: var(--surface2); color: var(--ink); }
+.nav-item.active { background: var(--surface2); color: var(--ink); font-weight: 500; }
+.nav-item svg { flex-shrink: 0; opacity: 0.6; }
+.nav-item.active svg { opacity: 1; }
+.main { flex: 1; overflow-y: auto; padding: 2.5rem 3rem; max-width: 900px; }
+.page-title { font-family: 'Playfair Display', serif; font-weight: 400; font-size: 1.8rem; color: var(--ink); margin-bottom: 0.4rem; }
+.page-sub { font-size: 0.78rem; color: var(--stone); letter-spacing: 0.04em; margin-bottom: 2rem; }
+.card { background: var(--surface); border: 1px solid var(--border); margin-bottom: 1.5rem; }
+.card-header { padding: 1.2rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.card-title { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); }
+.card-body { padding: 1.5rem; }
+.field-group { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+.field-group.single { grid-template-columns: 1fr; }
+.field-group.triple { grid-template-columns: 1fr 1fr 1fr; }
+.field { display: flex; flex-direction: column; gap: 0.35rem; }
+.field label { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ash); }
+.field input, .field textarea, .field select { background: var(--surface2); border: 1px solid var(--border); outline: none; font-family: 'Jost',sans-serif; font-size: 0.88rem; font-weight: 300; color: var(--ink); padding: 0.6rem 0.8rem; transition: border-color 0.2s; width: 100%; }
+.field input:focus, .field textarea:focus, .field select:focus { border-color: var(--border-focus); background: var(--surface); }
+.field textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+.tags-input-wrap { display: flex; flex-wrap: wrap; gap: 0.4rem; background: var(--surface2); border: 1px solid var(--border); padding: 0.5rem 0.6rem; min-height: 42px; align-items: center; cursor: text; transition: border-color 0.2s; }
+.tags-input-wrap:focus-within { border-color: var(--border-focus); background: var(--surface); }
+.tag-chip { display: flex; align-items: center; gap: 0.3rem; background: #f0ece4; border: 1px solid var(--border); padding: 0.2rem 0.55rem; font-size: 0.72rem; letter-spacing: 0.08em; color: var(--earth); }
+.tag-chip button { background: none; border: none; cursor: pointer; color: var(--ash); font-size: 1rem; line-height: 1; padding: 0; display: flex; align-items: center; }
+.tag-chip button:hover { color: var(--error); }
+.tags-ghost-input { border: none; outline: none; background: none; font-family: 'Jost',sans-serif; font-size: 0.82rem; color: var(--ink); min-width: 80px; flex: 1; }
+.toggle-wrap { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.15rem; }
+.toggle { position: relative; width: 38px; height: 22px; flex-shrink: 0; }
+.toggle input { display: none; }
+.toggle-track { position: absolute; inset: 0; background: var(--border); border-radius: 11px; cursor: pointer; transition: background 0.2s; }
+.toggle input:checked + .toggle-track { background: var(--earth); }
+.toggle-thumb { position: absolute; width: 16px; height: 16px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: transform 0.2s; pointer-events: none; }
+.toggle input:checked ~ .toggle-thumb { transform: translateX(16px); }
+.toggle-label { font-size: 0.78rem; color: var(--stone); }
+.btn { font-family: 'Jost',sans-serif; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 400; padding: 0.65rem 1.6rem; border: none; cursor: pointer; transition: background 0.2s, color 0.2s, opacity 0.2s; display: inline-flex; align-items: center; gap: 0.5rem; }
+.btn-primary { background: var(--ink); color: var(--bg); }
+.btn-primary:hover { background: var(--earth); }
+.btn-ghost { background: none; color: var(--stone); border: 1px solid var(--border); }
+.btn-ghost:hover { border-color: var(--ink); color: var(--ink); }
+.btn-danger { background: none; color: var(--error); border: 1px solid rgba(154,74,58,0.25); }
+.btn-danger:hover { background: rgba(154,74,58,0.06); }
+.btn-sm { padding: 0.4rem 1rem; font-size: 0.65rem; }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+#toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 999; display: flex; flex-direction: column; gap: 0.6rem; }
+.toast { padding: 0.8rem 1.2rem; font-size: 0.78rem; letter-spacing: 0.08em; color: white; display: flex; align-items: center; gap: 0.6rem; animation: slideIn 0.25s ease; min-width: 220px; }
+.toast.success { background: var(--success); }
+.toast.error { background: var(--error); }
+@keyframes slideIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.tile-list { display: flex; flex-direction: column; gap: 0; }
+.tile-row { display: grid; grid-template-columns: 28px 1fr 120px 80px 80px; align-items: center; gap: 1rem; padding: 0.9rem 1.2rem; border-bottom: 1px solid var(--border); transition: background 0.15s; }
+.tile-row:last-child { border-bottom: none; }
+.tile-row:hover { background: var(--surface2); }
+.tile-drag { cursor: grab; color: var(--ash); }
+.tile-row-title { font-size: 0.88rem; color: var(--ink); }
+.tile-row-cat { font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--stone); margin-top: 0.15rem; }
+.tile-row-actions { display: flex; gap: 0.5rem; justify-content: flex-end; }
+.tile-row-badge { font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.2rem 0.6rem; border: 1px solid var(--border); color: var(--stone); white-space: nowrap; }
+.tile-row-badge.wide { border-color: #6b5c46; color: #6b5c46; }
+.edit-panel { display: none; background: var(--surface2); border: 1px solid var(--border); border-top: none; padding: 1.5rem; }
+.edit-panel.open { display: block; }
+.edit-panel-header { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ash); margin-bottom: 1rem; }
+.panel-actions { display: flex; gap: 0.75rem; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--border); }
+.section-hidden { display: none; }
+.save-bar { position: sticky; bottom: 0; background: var(--surface); border-top: 1px solid var(--border); padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+.save-bar-note { font-size: 0.7rem; color: var(--ash); letter-spacing: 0.1em; }
+.add-row { padding: 0.8rem 1.2rem; display: flex; align-items: center; gap: 0.5rem; border-top: 1px solid var(--border); }
+.loading-mask { display: flex; align-items: center; justify-content: center; padding: 4rem; color: var(--ash); font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="topbar-brand">AlbericiUAS <span>Admin</span></span>
+  <div><a class="btn-preview" href="/" target="_blank">Preview Site</a></div>
+</div>
+
+<div class="layout">
+  <nav class="sidebar">
+    <span class="nav-section-label">Content</span>
+    <button class="nav-item active" data-section="hero" onclick="showSection('hero',this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18"/></svg>
+      Hero
+    </button>
+    <button class="nav-item" data-section="about" onclick="showSection('about',this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      About
+    </button>
+    <button class="nav-item" data-section="contact" onclick="showSection('contact',this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.93 19.79 19.79 0 01.07 3.18 2 2 0 012.06 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      Contact
+    </button>
+    <span class="nav-section-label">Portfolio</span>
+    <button class="nav-item" data-section="work" onclick="showSection('work',this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Work Tiles
+    </button>
+    <button class="nav-item" data-section="services" onclick="showSection('services',this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      Services
+    </button>
+    <span class="nav-section-label">Site</span>
+    <button class="nav-item" data-section="footer" onclick="showSection('footer',this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+      Footer
+    </button>
+  </nav>
+
+  <main class="main" id="main-content">
+    <div class="loading-mask" id="loading">Loading content...</div>
+
+    <!-- HERO -->
+    <div id="section-hero" class="section-hidden">
+      <h1 class="page-title">Hero Section</h1>
+      <p class="page-sub">Landing headline, subheadline, and body copy.</p>
+      <div class="card">
+        <div class="card-header"><span class="card-title">Eyebrow Text</span></div>
+        <div class="card-body">
+          <div class="field-group single">
+            <div class="field">
+              <label for="hero_eyebrow">Small text above headline</label>
+              <input type="text" id="hero_eyebrow" maxlength="100">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-title">Headline</span></div>
+        <div class="card-body">
+          <div class="field-group">
+            <div class="field">
+              <label for="hero_title_line1">Line 1</label>
+              <input type="text" id="hero_title_line1" maxlength="60">
+            </div>
+            <div class="field">
+              <label for="hero_title_line2">Line 2</label>
+              <input type="text" id="hero_title_line2" maxlength="60">
+            </div>
+          </div>
+          <div class="field-group single">
+            <div class="field">
+              <label for="hero_title_line3">Line 3 (italic / accented)</label>
+              <input type="text" id="hero_title_line3" maxlength="60">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-title">Body Copy</span></div>
+        <div class="card-body">
+          <div class="field-group single">
+            <div class="field">
+              <label for="hero_body">Paragraph text beneath headline</label>
+              <textarea id="hero_body" rows="4" maxlength="400"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="save-bar">
+        <span class="save-bar-note">Changes apply to the live site on save</span>
+        <button class="btn btn-primary" onclick="saveSettings('hero')">Save Hero</button>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <div id="section-about" class="section-hidden">
+      <h1 class="page-title">About Section</h1>
+      <p class="page-sub">Studio background, pull quote, and certifications.</p>
+      <div class="card">
+        <div class="card-header"><span class="card-title">Pull Quote</span></div>
+        <div class="card-body">
+          <div class="field-group single">
+            <div class="field">
+              <label for="about_pull_quote">Displayed as italic blockquote</label>
+              <textarea id="about_pull_quote" rows="3" maxlength="200"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-title">Body Text</span></div>
+        <div class="card-body">
+          <div class="field-group single">
+            <div class="field">
+              <label for="about_body1">First paragraph</label>
+              <textarea id="about_body1" rows="4" maxlength="600"></textarea>
+            </div>
+          </div>
+          <div class="field-group single">
+            <div class="field">
+              <label for="about_body2">Second paragraph</label>
+              <textarea id="about_body2" rows="4" maxlength="600"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="save-bar">
+        <span class="save-bar-note">Changes apply to the live site on save</span>
+        <button class="btn btn-primary" onclick="saveSettings('about')">Save About</button>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div id="section-contact" class="section-hidden">
+      <h1 class="page-title">Contact Details</h1>
+      <p class="page-sub">Contact information displayed in the inquiry section.</p>
+      <div class="card">
+        <div class="card-header"><span class="card-title">Contact Info</span></div>
+        <div class="card-body">
+          <div class="field-group">
+            <div class="field">
+              <label for="contact_email">Email address</label>
+              <input type="email" id="contact_email">
+            </div>
+            <div class="field">
+              <label for="contact_phone">Phone number</label>
+              <input type="text" id="contact_phone">
+            </div>
+          </div>
+          <div class="field-group">
+            <div class="field">
+              <label for="contact_area">Service area</label>
+              <input type="text" id="contact_area">
+            </div>
+            <div class="field">
+              <label for="contact_lead">Booking lead time</label>
+              <input type="text" id="contact_lead">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="save-bar">
+        <span class="save-bar-note">Changes apply to the live site on save</span>
+        <button class="btn btn-primary" onclick="saveSettings('contact')">Save Contact</button>
+      </div>
+    </div>
+
+    <!-- WORK TILES -->
+    <div id="section-work" class="section-hidden">
+      <h1 class="page-title">Work Tiles</h1>
+      <p class="page-sub">Portfolio items in the grid. Toggle visibility, edit details.</p>
+      <div class="card">
+        <div class="card-header"><span class="card-title">Portfolio Grid</span></div>
+        <div class="tile-list" id="work-list"></div>
+        <div class="add-row">
+          <button class="btn btn-ghost btn-sm" onclick="addTile()">+ Add Tile</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SERVICES -->
+    <div id="section-services" class="section-hidden">
+      <h1 class="page-title">Services</h1>
+      <p class="page-sub">Capabilities listed in the services section.</p>
+      <div class="card">
+        <div class="card-header"><span class="card-title">Capabilities List</span></div>
+        <div class="tile-list" id="services-list"></div>
+        <div class="add-row">
+          <button class="btn btn-ghost btn-sm" onclick="addService()">+ Add Service</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div id="section-footer" class="section-hidden">
+      <h1 class="page-title">Footer</h1>
+      <p class="page-sub">Copyright line and footer text.</p>
+      <div class="card">
+        <div class="card-header"><span class="card-title">Footer Copy</span></div>
+        <div class="card-body">
+          <div class="field-group single">
+            <div class="field">
+              <label for="footer_copy">Copyright / footer text</label>
+              <input type="text" id="footer_copy" maxlength="200">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="save-bar">
+        <span class="save-bar-note">Changes apply to the live site on save</span>
+        <button class="btn btn-primary" onclick="saveSettings('footer')">Save Footer</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="toast-container"></div>
+<script type="module" src="./admin.js"></script>
+</body>
+</html>
