@@ -350,7 +350,7 @@ nav {
 }
 .work-tile:hover .tile-play { opacity: 1; transform: scale(1); }
 
-/* ─── ABOUT ��── */
+/* ─── ABOUT ─── */
 #about { background: var(--parchment); }
 
 .about-layout {
@@ -485,131 +485,83 @@ nav {
 }
 
 /* ─── CONTACT ─── */
-#contact { background: var(--parchment); }
+#contact { background: var(--parchment); padding: 6vw 5vw; }
 
-.contact-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 70vh;
-}
-.contact-left {
-  padding: 6vw 5vw;
-  border-right: 1px solid var(--rule);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.contact-intro {
+.contact-heading {
   font-family: 'Playfair Display', serif;
   font-weight: 400;
-  font-size: clamp(1.6rem, 2.5vw, 2.4rem);
-  line-height: 1.2;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
   color: var(--ink);
-  margin-bottom: 2.5rem;
+  margin-bottom: 0.3rem;
 }
-.contact-intro em { font-style: italic; color: var(--umber); }
-.contact-detail-list {
-  display: flex; flex-direction: column; gap: 2rem;
-  margin-top: auto;
-}
-.contact-detail {}
-.contact-detail-label {
-  font-size: 0.6rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--ash);
-  display: block;
-  margin-bottom: 0.4rem;
-}
-.contact-detail a,
-.contact-detail p {
-  font-size: 0.92rem;
-  color: var(--ink);
-  text-decoration: none;
-  transition: color 0.3s;
-}
-.contact-detail a:hover { color: var(--umber); }
+.contact-heading em { font-style: italic; color: var(--umber); }
 
-.contact-right {
-  padding: 6vw 5vw;
-}
-.contact-right p.form-label-main {
-  font-size: 0.65rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
+.contact-intro {
+  font-size: 0.88rem;
   color: var(--stone);
-  margin-bottom: 2.5rem;
+  margin-bottom: 3rem;
+  max-width: 600px;
 }
 
-/* Form */
-.form-field {
-  margin-bottom: 0;
-  border-bottom: 1px solid var(--rule);
-  position: relative;
+.contact-form {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
-.form-field:first-of-type { border-top: 1px solid var(--rule); }
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--rule);
+  padding: 1.2rem 0;
+}
+.form-field:first-child { padding-top: 0; }
+
 .form-field label {
-  display: block;
   font-size: 0.6rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--ash);
-  padding: 1.2rem 0 0.3rem;
-  transition: color 0.3s;
+  margin-bottom: 0.5rem;
 }
-.form-field:focus-within label { color: var(--umber); }
+
 .form-field input,
-.form-field textarea,
-.form-field select {
-  width: 100%;
+.form-field textarea {
   background: none;
   border: none;
   outline: none;
   font-family: 'EB Garamond', serif;
-  font-size: 1.05rem;
+  font-size: 1rem;
   color: var(--ink);
-  padding: 0.2rem 0 1rem;
-  line-height: 1.4;
-  -webkit-appearance: none;
+  line-height: 1.5;
 }
-.form-field select option { background: var(--parchment); }
-.form-field textarea { resize: none; height: 90px; }
+
 .form-field input::placeholder,
 .form-field textarea::placeholder {
   color: var(--ash);
   font-style: italic;
 }
 
-.form-row-two {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
-  border-bottom: 1px solid var(--rule);
+.form-field textarea {
+  resize: vertical;
+  min-height: 100px;
 }
-.form-row-two .form-field {
-  border-bottom: none;
-}
-.form-row-two .form-field:first-child {
-  border-right: 1px solid var(--rule);
-  padding-right: 2rem;
-}
-.form-row-two .form-field:last-child {
-  padding-left: 2rem;
-}
-.form-row-two:first-of-type { border-top: 1px solid var(--rule); }
 
-.form-submit-row {
+.form-submit {
+  margin-top: 1.5rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-top: 2.5rem;
+  gap: 1.5rem;
 }
+
 .form-note {
   font-size: 0.62rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--ash);
 }
+
 .btn-submit {
   font-family: 'Jost', sans-serif;
   font-size: 0.72rem;
@@ -627,23 +579,21 @@ nav {
 
 .form-success {
   display: none;
-  padding: 3rem 0;
-  text-align: center;
+  max-width: 500px;
 }
 .form-success.show { display: block; }
-.form-success p {
+.form-success-text {
   font-family: 'Playfair Display', serif;
   font-size: 1.3rem;
   font-style: italic;
   color: var(--umber);
+  margin-bottom: 0.5rem;
 }
-.form-success small {
-  display: block;
+.form-success-note {
   font-size: 0.7rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--ash);
-  margin-top: 0.6rem;
 }
 
 /* ─── FOOTER ─── */
@@ -780,7 +730,6 @@ footer {
   .hero-right { min-height: 50vw; }
   .about-layout { grid-template-columns: 1fr; }
   .about-visual { min-height: 40vw; }
-  .contact-layout { grid-template-columns: 1fr; }
   .service-row { grid-template-columns: 2rem 1fr; gap: 1.5rem; }
   .service-tags { display: none; }
   .stats-row { grid-template-columns: 1fr 1fr; }
@@ -793,9 +742,6 @@ footer {
   .work-tile.wide { grid-column: span 1; aspect-ratio: 4/3; }
   .nav-links { display: none; }
   .section-header { flex-direction: column; gap: 0.5rem; }
-  .form-row-two { grid-template-columns: 1fr; border-bottom: none; }
-  .form-row-two .form-field:first-child { border-right: none; padding-right: 0; border-bottom: 1px solid var(--rule); }
-  .form-row-two .form-field:last-child { padding-left: 0; }
   .service-row { grid-template-columns: 1fr; }
   .service-index { display: none; }
 }
@@ -1022,63 +968,35 @@ footer {
 
 <!-- Contact -->
 <section id="contact">
-  <div class="contact-layout">
-    <div class="contact-left">
-      <h2 class="contact-intro">Get in <em>Touch</em></h2>
-      <div class="contact-detail-list">
-        <div class="contact-detail">
-          <span class="contact-detail-label">Email</span>
-          <a id="site-contact-email" href="mailto:contact@example.com">contact@example.com</a>
-        </div>
-        <div class="contact-detail">
-          <span class="contact-detail-label">Phone</span>
-          <a id="site-contact-phone" href="tel:+1234567890">+1 (234) 567-890</a>
-        </div>
-        <div class="contact-detail">
-          <span class="contact-detail-label">Service Area</span>
-          <p id="site-contact-area">Pacific Northwest & Beyond</p>
-        </div>
-        <div class="contact-detail">
-          <span class="contact-detail-label">Booking Lead Time</span>
-          <p id="site-contact-lead">2-4 weeks recommended</p>
-        </div>
-      </div>
+  <h2 class="contact-heading">Get in <em>Touch</em></h2>
+  <p class="contact-intro">Have a project in mind? Send us a message and we'll respond within 24 hours.</p>
+  
+  <form id="contact-form" class="contact-form">
+    <div class="form-field">
+      <label for="form-name">Name</label>
+      <input type="text" id="form-name" name="name" placeholder="Your name" required>
     </div>
-    <div class="contact-right">
-      <p class="form-label-main">Send a Message</p>
-      <form id="contact-form">
-        <div class="form-field">
-          <label for="form-name">Name</label>
-          <input type="text" id="form-name" name="name" required>
-        </div>
-        <div class="form-field">
-          <label for="form-email">Email</label>
-          <input type="email" id="form-email" name="email" required>
-        </div>
-        <div class="form-row-two">
-          <div class="form-field">
-            <label for="form-phone">Phone (optional)</label>
-            <input type="tel" id="form-phone" name="phone">
-          </div>
-          <div class="form-field">
-            <label for="form-subject">Subject</label>
-            <input type="text" id="form-subject" name="subject">
-          </div>
-        </div>
-        <div class="form-field">
-          <label for="form-message">Message</label>
-          <textarea id="form-message" name="message" required></textarea>
-        </div>
-        <div class="form-submit-row">
-          <p class="form-note">We'll respond within 24 hours</p>
-          <button type="submit" class="btn-submit">Send</button>
-        </div>
-      </form>
-      <div class="form-success" id="form-success">
-        <p>Thank you</p>
-        <small>Your message has been sent. We'll be in touch soon.</small>
-      </div>
+    <div class="form-field">
+      <label for="form-email">Email</label>
+      <input type="email" id="form-email" name="email" placeholder="your@email.com" required>
     </div>
+    <div class="form-field">
+      <label for="form-subject">Subject</label>
+      <input type="text" id="form-subject" name="subject" placeholder="Project type or subject">
+    </div>
+    <div class="form-field">
+      <label for="form-message">Message</label>
+      <textarea id="form-message" name="message" placeholder="Tell us about your project..." required></textarea>
+    </div>
+    <div class="form-submit">
+      <button type="submit" class="btn-submit">Send</button>
+      <span class="form-note">Secured with Web3Forms</span>
+    </div>
+  </form>
+
+  <div class="form-success" id="form-success">
+    <p class="form-success-text">Thank you</p>
+    <p class="form-success-note">Your message has been sent. We'll be in touch soon.</p>
   </div>
 </section>
 
