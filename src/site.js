@@ -67,7 +67,9 @@ function applyServices(services) {
 }
 
 function reobserve() {
-  const io = new IntersectionObserver(entries => { entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('visible'); io.unobserve(en.target) } }) }, { threshold: 0.08 })
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('visible'); io.unobserve(en.target) } })
+  }, { threshold: 0.08 })
   document.querySelectorAll('.reveal').forEach(el => io.observe(el))
 }
 
