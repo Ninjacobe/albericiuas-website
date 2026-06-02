@@ -350,7 +350,7 @@ nav {
 }
 .work-tile:hover .tile-play { opacity: 1; transform: scale(1); }
 
-/* ─── ABOUT ─── */
+/* ─── ABOUT ��── */
 #about { background: var(--parchment); }
 
 .about-layout {
@@ -988,239 +988,24 @@ footer {
       </div>
     </div>
 
-    <!-- Tile 2 -->
-    <div class="work-tile reveal" data-cat="cinematic" onclick="openModal('Ridge at First Light', 'Cinematic')">
-      <svg class="tile-scene" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <linearGradient id="t2sky" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#a09080"/>
-            <stop offset="100%" stop-color="#c8b8a8"/>
-          </linearGradient>
-        </defs>
-        <rect width="400" height="300" fill="url(#t2sky)"/>
-        <path d="M0 180 Q60 120 120 155 Q180 100 240 140 Q300 90 360 130 Q380 118 400 125 L400 300 L0 300Z" fill="#6a6258" opacity="0.6"/>
-        <path d="M0 220 Q80 190 160 205 Q240 180 320 198 Q360 185 400 192 L400 300 L0 300Z" fill="#4a4438"/>
-        <path d="M0 265 Q120 250 240 258 Q340 245 400 255 L400 300 L0 300Z" fill="#3a342c"/>
-        <!-- Sun glow -->
-        <circle cx="300" cy="80" r="28" fill="rgba(220,200,160,0.35)"/>
-        <circle cx="300" cy="80" r="18" fill="rgba(220,200,160,0.5)"/>
-      </svg>
-      <div class="tile-always">
-        <div class="tile-cat">Cinematic</div>
-        <div class="tile-name">Ridge at First Light</div>
-      </div>
-      <div class="tile-info">
-        <div class="tile-cat">Cinematic · 4K</div>
-        <div class="tile-name">Ridge at First Light</div>
-        <div class="tile-desc">Sweeping panoramic orbit at dawn, mountain horizon.</div>
-      </div>
-      <div class="tile-play">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(244,241,236,0.9)"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-      </div>
-    </div>
+  </div>
 
-    <!-- Tile 3 -->
-    <div class="work-tile reveal" data-cat="events" onclick="openModal('Harvest Festival', 'Events')">
-      <svg class="tile-scene" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
-        <rect width="400" height="300" fill="#5a5248"/>
-        <rect x="0" y="200" width="400" height="100" fill="#3a342c"/>
-        <!-- Tents / marquees -->
-        <polygon points="80,200 120,160 160,200" fill="#c8b890" opacity="0.7"/>
-        <polygon points="180,200 220,155 260,200" fill="#c8b890" opacity="0.65"/>
-        <polygon points="260,200 300,162 340,200" fill="#c8b890" opacity="0.6"/>
-        <!-- People dots -->
-        <circle cx="100" cy="205" r="3" fill="#e0d8c8" opacity="0.5"/>
-        <circle cx="140" cy="207" r="2.5" fill="#e0d8c8" opacity="0.5"/>
-        <circle cx="200" cy="204" r="3" fill="#e0d8c8" opacity="0.5"/>
-        <circle cx="280" cy="206" r="2.5" fill="#e0d8c8" opacity="0.5"/>
-        <!-- Sky gradient -->
-        <rect width="400" height="200" fill="rgba(90,80,68,0)" opacity="0"/>
-        <path d="M0 0 L400 0 L400 120 Q200 100 0 120Z" fill="rgba(160,148,128,0.4)"/>
-      </svg>
-      <div class="tile-always">
-        <div class="tile-cat">Events</div>
-        <div class="tile-name">Harvest Festival</div>
-      </div>
-      <div class="tile-info">
-        <div class="tile-cat">Events · 4K</div>
-        <div class="tile-name">Harvest Festival</div>
-        <div class="tile-desc">Crowd scale and site layout from altitude.</div>
-      </div>
-      <div class="tile-play">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(244,241,236,0.9)"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-      </div>
-    </div>
-
-    <!-- Tile 4 -->
-    <div class="work-tile reveal" data-cat="commercial" onclick="openModal('Construction Progress', 'Commercial')">
-      <svg class="tile-scene" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
-        <rect width="400" height="300" fill="#8a8a7a"/>
-        <!-- Grid / site map -->
-        <rect x="40" y="40" width="320" height="220" fill="none" stroke="rgba(224,216,200,0.25)" stroke-width="1"/>
-        <line x1="40" y1="110" x2="360" y2="110" stroke="rgba(224,216,200,0.15)" stroke-width="0.5"/>
-        <line x1="40" y1="180" x2="360" y2="180" stroke="rgba(224,216,200,0.15)" stroke-width="0.5"/>
-        <line x1="160" y1="40" x2="160" y2="260" stroke="rgba(224,216,200,0.15)" stroke-width="0.5"/>
-        <line x1="280" y1="40" x2="280" y2="260" stroke="rgba(224,216,200,0.15)" stroke-width="0.5"/>
-        <!-- Building footprints -->
-        <rect x="60" y="55" width="80" height="40" fill="rgba(180,170,148,0.6)"/>
-        <rect x="180" y="120" width="80" height="45" fill="rgba(180,170,148,0.5)"/>
-        <rect x="60" y="190" width="60" height="50" fill="rgba(180,170,148,0.4)"/>
-        <!-- Crane -->
-        <line x1="310" y1="260" x2="310" y2="100" stroke="rgba(220,210,190,0.5)" stroke-width="2"/>
-        <line x1="310" y1="100" x2="360" y2="100" stroke="rgba(220,210,190,0.4)" stroke-width="1.5"/>
-        <line x1="310" y1="100" x2="275" y2="100" stroke="rgba(220,210,190,0.4)" stroke-width="1.5"/>
-        <line x1="355" y1="100" x2="355" y2="140" stroke="rgba(220,210,190,0.3)" stroke-width="1"/>
-      </svg>
-      <div class="tile-always">
-        <div class="tile-cat">Commercial</div>
-        <div class="tile-name">Construction Progress</div>
-      </div>
-      <div class="tile-info">
-        <div class="tile-cat">Commercial · 4K</div>
-        <div class="tile-name">Construction Progress</div>
-        <div class="tile-desc">Weekly site documentation and orthomosaic mapping.</div>
-      </div>
-      <div class="tile-play">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(244,241,236,0.9)"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-      </div>
-    </div>
-
-    <!-- Tile 5 -->
-    <div class="work-tile reveal" data-cat="cinematic" onclick="openModal('Coastal Passage', 'Cinematic')">
-      <svg class="tile-scene" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <linearGradient id="t5" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#788090"/>
-            <stop offset="50%" stop-color="#a0a8b0"/>
-            <stop offset="100%" stop-color="#c0c8c8"/>
-          </linearGradient>
-        </defs>
-        <rect width="400" height="300" fill="url(#t5)"/>
-        <!-- Sea -->
-        <path d="M0 180 Q100 165 200 175 Q300 162 400 170 L400 300 L0 300Z" fill="#5a6870" opacity="0.8"/>
-        <path d="M0 210 Q80 195 180 205 Q280 192 400 200 L400 300 L0 300Z" fill="#485860"/>
-        <!-- Cliffs -->
-        <path d="M0 230 Q40 200 80 225 L80 300 L0 300Z" fill="#786858"/>
-        <path d="M320 300 L320 210 Q360 195 400 215 L400 300Z" fill="#786858"/>
-        <!-- Wave lines -->
-        <path d="M60 185 Q120 180 180 185" stroke="rgba(220,228,228,0.3)" fill="none" stroke-width="1"/>
-        <path d="M220 178 Q280 173 340 178" stroke="rgba(220,228,228,0.25)" fill="none" stroke-width="1"/>
-      </svg>
-      <div class="tile-always">
-        <div class="tile-cat">Cinematic</div>
-        <div class="tile-name">Coastal Passage</div>
-      </div>
-      <div class="tile-info">
-        <div class="tile-cat">Cinematic · 4K</div>
-        <div class="tile-name">Coastal Passage</div>
-        <div class="tile-desc">Low-altitude cliff traverse at blue hour.</div>
-      </div>
-      <div class="tile-play">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(244,241,236,0.9)"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-      </div>
-    </div>
-
-    <!-- Tile 6 -->
-    <div class="work-tile reveal" data-cat="real-estate" onclick="openModal('Mountain Lodge', 'Real Estate')">
-      <svg class="tile-scene" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <linearGradient id="t6" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#b0b8c0"/>
-            <stop offset="100%" stop-color="#d0d0c8"/>
-          </linearGradient>
-        </defs>
-        <rect width="400" height="300" fill="url(#t6)"/>
-        <!-- Pine trees silhouette -->
-        <path d="M0 280 L0 200 Q20 180 30 200 Q40 160 50 200 Q60 170 70 200 L70 280Z" fill="#4a5040"/>
-        <path d="M330 280 L330 195 Q350 175 360 195 Q370 160 380 195 Q390 170 400 195 L400 280Z" fill="#4a5040"/>
-        <!-- Lodge -->
-        <rect x="150" y="195" width="100" height="65" fill="#c8b8a0" opacity="0.85"/>
-        <polygon points="140,195 260,195 200,155" fill="#a89070" opacity="0.85"/>
-        <!-- Snow on roof -->
-        <path d="M140 195 Q200 188 260 195 Q200 159 140 195Z" fill="rgba(240,240,238,0.5)"/>
-        <!-- Snowy ground -->
-        <path d="M0 262 Q100 255 200 260 Q300 252 400 258 L400 300 L0 300Z" fill="rgba(240,240,238,0.6)"/>
-        <!-- Trees mid -->
-        <path d="M100 260 Q110 235 120 260Z" fill="#4a5040" opacity="0.8"/>
-        <path d="M280 255 Q290 228 300 255Z" fill="#4a5040" opacity="0.8"/>
-      </svg>
-      <div class="tile-always">
-        <div class="tile-cat">Real Estate</div>
-        <div class="tile-name">Mountain Lodge</div>
-      </div>
-      <div class="tile-info">
-        <div class="tile-cat">Real Estate · 4K</div>
-        <div class="tile-name">Mountain Lodge</div>
-        <div class="tile-desc">Winter property reveal through alpine canopy.</div>
-      </div>
-      <div class="tile-play">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(244,241,236,0.9)"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-      </div>
-    </div>
-
-  </div><!-- /grid-work -->
 </section>
 
 <!-- About -->
 <section id="about">
-  <div class="section-header reveal">
-    <span class="section-kicker">Studio</span>
-    <h2 class="section-heading">About <em>AlbericiUAS</em></h2>
-  </div>
   <div class="about-layout">
-    <div class="about-text reveal">
-      <blockquote class="about-pull" id="site-about-pull">
-        "The most powerful images are the ones that show you a place you know, in a way you've never seen it."
-      </blockquote>
-      <p class="about-body" id="site-about-body1">
-        AlbericiUAS is a professional UAS (unmanned aerial systems) operation focused on cinematic-quality aerial videography and photography. Every project begins with a conversation about what you're trying to communicate — and ends with footage that says it clearly.
-      </p>
-      <p class="about-body" id="site-about-body2">
-        We operate under FAA Part 107 certification and coordinate with ATC for controlled airspace access, night waivers, and beyond-visual-line-of-sight operations when the project requires it. Fully insured. Equipment maintained to manufacturer specification.
-      </p>
-      <div class="cert-row">
-        <div class="cert-item">
-          <span class="cert-label">Certification</span>
-          <span class="cert-val">FAA Part 107</span>
-        </div>
-        <div class="cert-item">
-          <span class="cert-label">Insurance</span>
-          <span class="cert-val">Fully Insured</span>
-        </div>
-        <div class="cert-item">
-          <span class="cert-label">Format</span>
-          <span class="cert-val">4K / 6K Cinema</span>
-        </div>
-        <div class="cert-item">
-          <span class="cert-label">Operations</span>
-          <span class="cert-val">Day · Night · LiDAR</span>
-        </div>
-      </div>
+    <div class="about-text">
+      <p class="about-pull" id="site-about-pull">From above.</p>
+      <p class="about-body" id="site-about-body1">AlbericiUAS specializes in aerial cinematography for properties, events, and commercial projects. We plan every flight with precision and craft every frame intentionally.</p>
+      <p class="about-body" id="site-about-body2">Our Part 107 certification and years of experience ensure professional results.</p>
     </div>
     <div class="about-visual">
-      <!-- Drone top-down diagram, very restrained -->
-      <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <line x1="150" y1="150" x2="60" y2="60" stroke="#4a4438" stroke-width="1.5"/>
-        <line x1="150" y1="150" x2="240" y2="60" stroke="#4a4438" stroke-width="1.5"/>
-        <line x1="150" y1="150" x2="60" y2="240" stroke="#4a4438" stroke-width="1.5"/>
-        <line x1="150" y1="150" x2="240" y2="240" stroke="#4a4438" stroke-width="1.5"/>
-        <circle cx="60" cy="60" r="30" stroke="#4a4438" stroke-width="1"/>
-        <circle cx="240" cy="60" r="30" stroke="#4a4438" stroke-width="1"/>
-        <circle cx="60" cy="240" r="30" stroke="#4a4438" stroke-width="1"/>
-        <circle cx="240" cy="240" r="30" stroke="#4a4438" stroke-width="1"/>
-        <circle cx="60" cy="60" r="6" fill="#4a4438"/>
-        <circle cx="240" cy="60" r="6" fill="#4a4438"/>
-        <circle cx="60" cy="240" r="6" fill="#4a4438"/>
-        <circle cx="240" cy="240" r="6" fill="#4a4438"/>
-        <rect x="126" y="126" width="48" height="48" rx="3" stroke="#4a4438" stroke-width="1.5"/>
-        <circle cx="150" cy="150" r="14" stroke="#4a4438" stroke-width="1"/>
-        <circle cx="150" cy="150" r="6" fill="#4a4438"/>
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="90" fill="none" stroke="currentColor" stroke-width="1"/>
       </svg>
       <div class="about-badge-block">
-        <p>
-          Aerial cinematography requires equal parts technical discipline and artistic judgment.
-          That's what we bring to every flight.
-        </p>
+        <p>Professional Aerial Cinematography<br>FAA Part 107 Certified</p>
       </div>
     </div>
   </div>
@@ -1228,153 +1013,70 @@ footer {
 
 <!-- Services -->
 <section id="services">
-  <div class="section-header reveal">
-    <span class="section-kicker">Capabilities</span>
-    <h2 class="section-heading">What We <em>Do</em></h2>
+  <div class="section-header">
+    <span class="section-kicker">What We Do</span>
+    <h2 class="section-heading">Our <em>Services</em></h2>
   </div>
-  <div class="services-list">
-
-    <div class="service-row reveal">
-      <span class="service-index">01</span>
-      <div class="service-title-col">Real Estate<em>Photography &amp; Video</em></div>
-      <p class="service-desc-col">Aerial tours that show a property in its full context — lot shape, water access, neighbourhood, views. Timed for golden hour or twilight when the light rewards patience.</p>
-      <div class="service-tags">
-        <span class="tag">Residential</span>
-        <span class="tag">Commercial</span>
-        <span class="tag">Twilight</span>
-      </div>
-    </div>
-
-    <div class="service-row reveal">
-      <span class="service-index">02</span>
-      <div class="service-title-col">Cinematic<em>Film &amp; Documentary</em></div>
-      <p class="service-desc-col">Narrative aerial sequences for films, brand films, and travel content. Custom shot lists, multi-day productions, colour-graded deliverables in your preferred codec.</p>
-      <div class="service-tags">
-        <span class="tag">Film</span>
-        <span class="tag">Brand</span>
-        <span class="tag">Tourism</span>
-      </div>
-    </div>
-
-    <div class="service-row reveal">
-      <span class="service-index">03</span>
-      <div class="service-title-col">Events<em>Coverage &amp; Documentation</em></div>
-      <p class="service-desc-col">Weddings, festivals, and corporate gatherings captured from altitude. Waiver-coordinated for controlled airspace. Crowd scale and site energy made legible.</p>
-      <div class="service-tags">
-        <span class="tag">Weddings</span>
-        <span class="tag">Festivals</span>
-        <span class="tag">Corporate</span>
-      </div>
-    </div>
-
-    <div class="service-row reveal">
-      <span class="service-index">04</span>
-      <div class="service-title-col">Commercial<em>Survey &amp; Inspection</em></div>
-      <p class="service-desc-col">Construction progress documentation, infrastructure inspection, and agricultural mapping. Orthomosaic outputs, 3D point clouds, and digital elevation models delivered survey-ready.</p>
-      <div class="service-tags">
-        <span class="tag">Mapping</span>
-        <span class="tag">Inspection</span>
-        <span class="tag">LiDAR</span>
-      </div>
-    </div>
-
-    <div class="service-row reveal">
-      <span class="service-index">05</span>
-      <div class="service-title-col">Time-Lapse<em>Hyperlapse &amp; Progress</em></div>
-      <p class="service-desc-col">Fixed-point and moving aerial time-lapses for construction, seasonal change, tidal sequences, and atmospheric events. Delivered as rendered sequences or source stacks.</p>
-      <div class="service-tags">
-        <span class="tag">Construction</span>
-        <span class="tag">Seasonal</span>
-        <span class="tag">Hyperlapse</span>
-      </div>
-    </div>
-
-  </div>
+  <div class="services-list"></div>
 </section>
 
 <!-- Contact -->
 <section id="contact">
-  <div class="section-header reveal">
-    <span class="section-kicker">Contact</span>
-    <h2 class="section-heading">Start a <em>Conversation</em></h2>
-  </div>
   <div class="contact-layout">
-    <div class="contact-left reveal">
-      <p class="contact-intro">
-        Tell us about your project.<br>We'll figure out the right<br>approach <em>together.</em>
-      </p>
+    <div class="contact-left">
+      <h2 class="contact-intro">Get in <em>Touch</em></h2>
       <div class="contact-detail-list">
         <div class="contact-detail">
           <span class="contact-detail-label">Email</span>
-          <a href="mailto:info@albericiuas.com" id="site-contact-email">info@albericiuas.com</a>
+          <a id="site-contact-email" href="mailto:contact@example.com">contact@example.com</a>
         </div>
         <div class="contact-detail">
           <span class="contact-detail-label">Phone</span>
-          <a href="tel:+15555550100" id="site-contact-phone">(555) 555-0100</a>
+          <a id="site-contact-phone" href="tel:+1234567890">+1 (234) 567-890</a>
         </div>
         <div class="contact-detail">
           <span class="contact-detail-label">Service Area</span>
-          <p id="site-contact-area">Regional &amp; Nationwide Travel</p>
+          <p id="site-contact-area">Pacific Northwest & Beyond</p>
         </div>
         <div class="contact-detail">
           <span class="contact-detail-label">Booking Lead Time</span>
-          <p id="site-contact-lead">2–4 weeks recommended</p>
+          <p id="site-contact-lead">2-4 weeks recommended</p>
         </div>
       </div>
     </div>
-
-    <div class="contact-right reveal">
-      <p class="form-label-main">Inquiry Form</p>
-      <form id="contact-form" onsubmit="handleSubmit(event)" novalidate>
-
+    <div class="contact-right">
+      <p class="form-label-main">Send a Message</p>
+      <form id="contact-form">
+        <div class="form-field">
+          <label for="form-name">Name</label>
+          <input type="text" id="form-name" name="name" required>
+        </div>
+        <div class="form-field">
+          <label for="form-email">Email</label>
+          <input type="email" id="form-email" name="email" required>
+        </div>
         <div class="form-row-two">
           <div class="form-field">
-            <label for="f-name">Name</label>
-            <input type="text" id="f-name" placeholder="Your name" required>
+            <label for="form-phone">Phone (optional)</label>
+            <input type="tel" id="form-phone" name="phone">
           </div>
           <div class="form-field">
-            <label for="f-email">Email</label>
-            <input type="email" id="f-email" placeholder="your@email.com" required>
+            <label for="form-subject">Subject</label>
+            <input type="text" id="form-subject" name="subject">
           </div>
         </div>
-
         <div class="form-field">
-          <label for="f-service">Project Type</label>
-          <select id="f-service" required>
-            <option value="" disabled selected>Select a service…</option>
-            <option>Real Estate</option>
-            <option>Cinematic / Film</option>
-            <option>Events &amp; Weddings</option>
-            <option>Commercial / Survey</option>
-            <option>Time-Lapse</option>
-            <option>Other</option>
-          </select>
+          <label for="form-message">Message</label>
+          <textarea id="form-message" name="message" required></textarea>
         </div>
-
-        <div class="form-row-two">
-          <div class="form-field">
-            <label for="f-location">Location</label>
-            <input type="text" id="f-location" placeholder="City or region">
-          </div>
-          <div class="form-field">
-            <label for="f-date">Approximate Date</label>
-            <input type="text" id="f-date" placeholder="Month / Year">
-          </div>
-        </div>
-
-        <div class="form-field">
-          <label for="f-message">Project Details</label>
-          <textarea id="f-message" placeholder="Tell us what you have in mind…" required></textarea>
-        </div>
-
         <div class="form-submit-row">
-          <span class="form-note">AlbericiUAS · FAA Part 107</span>
-          <button type="submit" class="btn-submit">Send Inquiry</button>
+          <p class="form-note">We'll respond within 24 hours</p>
+          <button type="submit" class="btn-submit">Send</button>
         </div>
       </form>
       <div class="form-success" id="form-success">
-        <p>Thank you — we'll be in touch within 24 hours.</p>
-        <small>AlbericiUAS · info@albericiuas.com</small>
+        <p>Thank you</p>
+        <small>Your message has been sent. We'll be in touch soon.</small>
       </div>
     </div>
   </div>
@@ -1383,59 +1085,148 @@ footer {
 <!-- Footer -->
 <footer>
   <span class="footer-logo">AlbericiUAS</span>
-  <span class="footer-copy" id="site-footer-copy">© 2026 AlbericiUAS &nbsp;·&nbsp; FAA Part 107 Certified &nbsp;·&nbsp; All Rights Reserved</span>
+  <p class="footer-copy" id="site-footer-copy">&copy; 2025 AlbericiUAS. All rights reserved.</p>
   <ul class="footer-links">
     <li><a href="#work">Work</a></li>
-    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </footer>
 
-<script type="module" src="./src/site.js"></script>
+<!-- Web3Forms Configuration -->
 <script>
-// Filter
-function doFilter(cat, btn) {
-  document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.work-tile').forEach(tile => {
-    const match = cat === 'all' || tile.dataset.cat === cat;
-    tile.style.display = match ? '' : 'none';
-  });
-}
-
-// Modal
-function openModal(title, cat) {
-  document.getElementById('modal-title').textContent = title;
-  document.getElementById('modal-cat').textContent = cat;
-  document.getElementById('modal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeModal() {
-  document.getElementById('modal').classList.remove('open');
-  document.body.style.overflow = '';
-}
-document.getElementById('modal').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-// Form
-function handleSubmit(e) {
-  e.preventDefault();
-  document.getElementById('contact-form').style.display = 'none';
-  document.getElementById('form-success').classList.add('show');
-}
-
-// Scroll reveal
-const io = new IntersectionObserver(entries => {
-  entries.forEach(en => {
-    if (en.isIntersecting) {
-      en.target.classList.add('visible');
-      io.unobserve(en.target);
-    }
-  });
-}, { threshold: 0.08 });
-document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  const WEB3FORMS_KEY = '5165ebe3-aa1d-4b79-95f2-130e2885a2aa';
 </script>
+
+<!-- Site Scripts -->
+<script type="module">
+  // Filter
+  function doFilter(cat, btn) {
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    
+    const tiles = document.querySelectorAll('.work-tile');
+    tiles.forEach(t => {
+      if (cat === 'all' || t.dataset.cat === cat) {
+        t.style.display = '';
+      } else {
+        t.style.display = 'none';
+      }
+    });
+  }
+
+  // Modal
+  function openModal(title, cat) {
+    document.getElementById('modal-title').textContent = title;
+    document.getElementById('modal-cat').textContent = cat;
+    document.getElementById('modal').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('open');
+  }
+
+  // Import and initialize site
+  import { supabase } from './src/supabase.js';
+  
+  window.doFilter = doFilter;
+  window.openModal = openModal;
+  window.closeModal = closeModal;
+
+  // Load site content from supabase
+  async function hydrateSite() {
+    try {
+      const [settings, tiles, services] = await Promise.all([
+        supabase.from('site_settings').select('*').maybeSingle(),
+        supabase.from('work_tiles').select('*').order('sort_order').eq('visible', true),
+        supabase.from('services').select('*').order('sort_order').eq('visible', true),
+      ]);
+
+      if (settings.data) applySettings(settings.data);
+      if (tiles.data) applyTiles(tiles.data);
+      if (services.data) applyServices(services.data);
+    } catch (err) {
+      console.error('Error loading site content:', err);
+    }
+  }
+
+  function applySettings(s) {
+    const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.textContent = val };
+    set('site-hero-eyebrow', s.hero_eyebrow);
+    const titleEl = document.getElementById('site-hero-title');
+    if (titleEl && (s.hero_title_line1 || s.hero_title_line2 || s.hero_title_line3)) {
+      titleEl.innerHTML = `${s.hero_title_line1 || ''}<br>${s.hero_title_line2 || ''}<br>from <em>${(s.hero_title_line3 || 'above.').replace(/^from\s*/i, '')}</em>`;
+    }
+    set('site-hero-body', s.hero_body);
+    set('site-about-pull', s.about_pull_quote);
+    set('site-about-body1', s.about_body1);
+    set('site-about-body2', s.about_body2);
+    const emailEl = document.getElementById('site-contact-email');
+    if (emailEl && s.contact_email) { emailEl.textContent = s.contact_email; emailEl.href = `mailto:${s.contact_email}` };
+    const phoneEl = document.getElementById('site-contact-phone');
+    if (phoneEl && s.contact_phone) { phoneEl.textContent = s.contact_phone; phoneEl.href = `tel:${s.contact_phone.replace(/\D/g, '')}` };
+    set('site-contact-area', s.contact_area);
+    set('site-contact-lead', s.contact_lead);
+    set('site-footer-copy', s.footer_copy);
+  }
+
+  function applyTiles(tiles) {
+    const grid = document.getElementById('grid-work');
+    if (!grid) return;
+    
+    grid.innerHTML = tiles.map((t, i) => {
+      const cls = t.is_wide ? 'wide' : '';
+      const cat = t.category || 'cinematic';
+      return `<div class="work-tile ${cls} reveal" data-cat="${cat}" onclick="openModal('${t.title.replace(/'/g,"\\'")}', '${cat}')" style="display:none;"><div style="width:100%;height:100%;background:#e0dbd0;"></div><div class="tile-always"><div class="tile-cat">${cat}</div><div class="tile-name">${t.title}</div></div><div class="tile-info"><div class="tile-cat">${cat} · 4K</div><div class="tile-name">${t.title}</div><div class="tile-desc">${t.description || ''}</div></div></div>`;
+    }).join('');
+    reobserve();
+  }
+
+  function applyServices(services) {
+    const list = document.querySelector('.services-list');
+    if (!list) return;
+    list.innerHTML = services.map((s, i) => `<div class="service-row reveal"><span class="service-index">${i + 1}</span><div class="service-title-col">${s.title}<em>${s.subtitle || ''}</em></div><p class="service-desc-col">${s.description || ''}</p><div class="service-tags">${(s.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}</div></div>`).join('');
+    reobserve();
+  }
+
+  function reobserve() {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('visible'); io.unobserve(en.target) } })
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  }
+
+  // Handle contact form
+  const contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(contactForm);
+      const data = Object.fromEntries(formData);
+
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_KEY,
+            ...data
+          })
+        });
+
+        if (response.ok) {
+          contactForm.style.display = 'none';
+          document.getElementById('form-success').classList.add('show');
+        }
+      } catch (err) {
+        console.error('Form submission error:', err);
+      }
+    });
+  }
+
+  hydrateSite();
+</script>
+
 </body>
 </html>
