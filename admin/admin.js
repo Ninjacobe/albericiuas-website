@@ -1,4 +1,4 @@
-import { supabase } from '../src/supabase.js'
+import { hasSupabaseConfig, supabase, supabaseConfigError } from '../src/supabase.js'
 
 let settings = {}
 let tiles = []
@@ -6,6 +6,13 @@ let services = []
 let openPanelId = null
 
 async function init() {
+  if (!hasSupabaseConfig) {
+    document.getElementById('loading').style.display = 'none'
+    toast(supabaseConfigError, 'error')
+    showSection('hero', document.querySelector('.nav-item.active'))
+    return
+  }
+
   await Promise.all([loadSettings(), loadTiles(), loadServices()])
   document.getElementById('loading').style.display = 'none'
   showSection('hero', document.querySelector('.nav-item.active'))

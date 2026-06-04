@@ -820,7 +820,7 @@ footer {
         <div class="modal-title" id="modal-title"></div>
         <div class="modal-cat" id="modal-cat"></div>
       </div>
-      <button class="modal-close" onclick="closeModal()">Close</button>
+      <button class="modal-close" type="button" data-close-modal>Close</button>
     </div>
   </div>
 </div>
@@ -839,9 +839,9 @@ footer {
 <!-- ── HERO ── -->
 <section id="hero">
   <div class="hero-left">
-    <p class="hero-eyebrow">Aerial Cinematography &amp; UAS Operations</p>
-    <h1 class="hero-title">The world<br>looks different<br>from <em>above.</em></h1>
-    <p class="hero-body">
+    <p class="hero-eyebrow" id="site-hero-eyebrow">Aerial Cinematography &amp; UAS Operations</p>
+    <h1 class="hero-title" id="site-hero-title">The world<br>looks different<br>from <em>above.</em></h1>
+    <p class="hero-body" id="site-hero-body">
       Professional drone videography that captures landscapes, properties, and events with the patience and craft they deserve. Every flight planned. Every frame intentional.
     </p>
     <div class="hero-actions">
@@ -940,17 +940,17 @@ footer {
   </div>
 
   <div class="filter-bar">
-    <button class="filter-tab active" onclick="doFilter('all',this)">All</button>
-    <button class="filter-tab" onclick="doFilter('real-estate',this)">Real Estate</button>
-    <button class="filter-tab" onclick="doFilter('cinematic',this)">Cinematic</button>
-    <button class="filter-tab" onclick="doFilter('events',this)">Events</button>
-    <button class="filter-tab" onclick="doFilter('commercial',this)">Commercial</button>
+    <button class="filter-tab active" type="button" data-filter="all">All</button>
+    <button class="filter-tab" type="button" data-filter="real-estate">Real Estate</button>
+    <button class="filter-tab" type="button" data-filter="cinematic">Cinematic</button>
+    <button class="filter-tab" type="button" data-filter="events">Events</button>
+    <button class="filter-tab" type="button" data-filter="commercial">Commercial</button>
   </div>
 
   <div class="grid-work" id="grid-work">
 
     <!-- Tile 1 — wide featured -->
-    <div class="work-tile wide reveal" data-cat="real-estate" onclick="openModal('Lakefront Estate', 'Real Estate')">
+    <div class="work-tile wide reveal" data-cat="real-estate">
       <svg class="tile-scene" viewBox="0 0 900 340" preserveAspectRatio="xMidYMid slice">
         <defs>
           <linearGradient id="t1sky" x1="0" y1="0" x2="0" y2="1">
@@ -989,7 +989,7 @@ footer {
     </div>
 
     <!-- Tile 2 -->
-    <div class="work-tile reveal" data-cat="cinematic" onclick="openModal('Ridge at First Light', 'Cinematic')">
+    <div class="work-tile reveal" data-cat="cinematic">
       <svg class="tile-scene" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
         <defs>
           <linearGradient id="t2sky" x1="0" y1="0" x2="0" y2="1">
@@ -1020,7 +1020,7 @@ footer {
     </div>
 
     <!-- Tile 3 -->
-    <div class="work-tile reveal" data-cat="events" onclick="openModal('Harvest Festival', 'Events')">
+    <div class="work-tile reveal" data-cat="events">
       <svg class="tile-scene" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
         <rect width="400" height="300" fill="#5a5248"/>
         <rect x="0" y="200" width="400" height="100" fill="#3a342c"/>
@@ -1052,7 +1052,7 @@ footer {
     </div>
 
     <!-- Tile 4 -->
-    <div class="work-tile reveal" data-cat="commercial" onclick="openModal('Construction Progress', 'Commercial')">
+    <div class="work-tile reveal" data-cat="commercial">
       <svg class="tile-scene" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
         <rect width="400" height="300" fill="#8a8a7a"/>
         <!-- Grid / site map -->
@@ -1086,7 +1086,7 @@ footer {
     </div>
 
     <!-- Tile 5 -->
-    <div class="work-tile reveal" data-cat="cinematic" onclick="openModal('Coastal Passage', 'Cinematic')">
+    <div class="work-tile reveal" data-cat="cinematic">
       <svg class="tile-scene" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
         <defs>
           <linearGradient id="t5" x1="0" y1="0" x2="0" y2="1">
@@ -1121,7 +1121,7 @@ footer {
     </div>
 
     <!-- Tile 6 -->
-    <div class="work-tile reveal" data-cat="real-estate" onclick="openModal('Mountain Lodge', 'Real Estate')">
+    <div class="work-tile reveal" data-cat="real-estate">
       <svg class="tile-scene" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
         <defs>
           <linearGradient id="t6" x1="0" y1="0" x2="0" y2="1">
@@ -1169,13 +1169,13 @@ footer {
   </div>
   <div class="about-layout">
     <div class="about-text reveal">
-      <blockquote class="about-pull">
+      <blockquote class="about-pull" id="site-about-pull">
         "The most powerful images are the ones that show you a place you know, in a way you've never seen it."
       </blockquote>
-      <p class="about-body">
+      <p class="about-body" id="site-about-body1">
         AlbericiUAS is a professional UAS (unmanned aerial systems) operation focused on cinematic-quality aerial videography and photography. Every project begins with a conversation about what you're trying to communicate — and ends with footage that says it clearly.
       </p>
-      <p class="about-body">
+      <p class="about-body" id="site-about-body2">
         We operate under FAA Part 107 certification and coordinate with ATC for controlled airspace access, night waivers, and beyond-visual-line-of-sight operations when the project requires it. Fully insured. Equipment maintained to manufacturer specification.
       </p>
       <div class="cert-row">
@@ -1306,41 +1306,41 @@ footer {
       <div class="contact-detail-list">
         <div class="contact-detail">
           <span class="contact-detail-label">Email</span>
-          <a href="mailto:info@albericiuas.com">info@albericiuas.com</a>
+          <a id="site-contact-email" href="mailto:info@albericiuas.com">info@albericiuas.com</a>
         </div>
         <div class="contact-detail">
           <span class="contact-detail-label">Phone</span>
-          <a href="tel:+15555550100">(555) 555-0100</a>
+          <a id="site-contact-phone" href="tel:+15555550100">(555) 555-0100</a>
         </div>
         <div class="contact-detail">
           <span class="contact-detail-label">Service Area</span>
-          <p>Regional &amp; Nationwide Travel</p>
+          <p id="site-contact-area">Regional &amp; Nationwide Travel</p>
         </div>
         <div class="contact-detail">
           <span class="contact-detail-label">Booking Lead Time</span>
-          <p>2–4 weeks recommended</p>
+          <p id="site-contact-lead">2–4 weeks recommended</p>
         </div>
       </div>
     </div>
 
     <div class="contact-right reveal">
       <p class="form-label-main">Inquiry Form</p>
-      <form id="contact-form" onsubmit="handleSubmit(event)" novalidate>
+      <form id="contact-form" novalidate>
 
         <div class="form-row-two">
           <div class="form-field">
             <label for="f-name">Name</label>
-            <input type="text" id="f-name" placeholder="Your name" required>
+            <input type="text" id="f-name" name="name" placeholder="Your name" required>
           </div>
           <div class="form-field">
             <label for="f-email">Email</label>
-            <input type="email" id="f-email" placeholder="your@email.com" required>
+            <input type="email" id="f-email" name="email" placeholder="your@email.com" required>
           </div>
         </div>
 
         <div class="form-field">
           <label for="f-service">Project Type</label>
-          <select id="f-service" required>
+          <select id="f-service" name="service" required>
             <option value="" disabled selected>Select a service…</option>
             <option>Real Estate</option>
             <option>Cinematic / Film</option>
@@ -1354,17 +1354,17 @@ footer {
         <div class="form-row-two">
           <div class="form-field">
             <label for="f-location">Location</label>
-            <input type="text" id="f-location" placeholder="City or region">
+            <input type="text" id="f-location" name="location" placeholder="City or region">
           </div>
           <div class="form-field">
             <label for="f-date">Approximate Date</label>
-            <input type="text" id="f-date" placeholder="Month / Year">
+            <input type="text" id="f-date" name="date" placeholder="Month / Year">
           </div>
         </div>
 
         <div class="form-field">
           <label for="f-message">Project Details</label>
-          <textarea id="f-message" placeholder="Tell us what you have in mind…" required></textarea>
+          <textarea id="f-message" name="message" placeholder="Tell us what you have in mind…" required></textarea>
         </div>
 
         <div class="form-submit-row">
@@ -1383,7 +1383,7 @@ footer {
 <!-- Footer -->
 <footer>
   <span class="footer-logo">AlbericiUAS</span>
-  <span class="footer-copy">© 2026 AlbericiUAS &nbsp;·&nbsp; FAA Part 107 Certified &nbsp;·&nbsp; All Rights Reserved</span>
+  <span class="footer-copy" id="site-footer-copy">© 2026 AlbericiUAS &nbsp;·&nbsp; FAA Part 107 Certified &nbsp;·&nbsp; All Rights Reserved</span>
   <ul class="footer-links">
     <li><a href="#work">Work</a></li>
     <li><a href="#services">Services</a></li>
@@ -1391,50 +1391,7 @@ footer {
   </ul>
 </footer>
 
-<script>
-// Filter
-function doFilter(cat, btn) {
-  document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.work-tile').forEach(tile => {
-    const match = cat === 'all' || tile.dataset.cat === cat;
-    tile.style.display = match ? '' : 'none';
-  });
-}
+<script type="module" src="/src/site.js"></script>
 
-// Modal
-function openModal(title, cat) {
-  document.getElementById('modal-title').textContent = title;
-  document.getElementById('modal-cat').textContent = cat;
-  document.getElementById('modal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeModal() {
-  document.getElementById('modal').classList.remove('open');
-  document.body.style.overflow = '';
-}
-document.getElementById('modal').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-// Form
-function handleSubmit(e) {
-  e.preventDefault();
-  document.getElementById('contact-form').style.display = 'none';
-  document.getElementById('form-success').classList.add('show');
-}
-
-// Scroll reveal
-const io = new IntersectionObserver(entries => {
-  entries.forEach(en => {
-    if (en.isIntersecting) {
-      en.target.classList.add('visible');
-      io.unobserve(en.target);
-    }
-  });
-}, { threshold: 0.08 });
-document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-</script>
 </body>
 </html>

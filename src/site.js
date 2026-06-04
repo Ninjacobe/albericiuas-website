@@ -1,4 +1,4 @@
-import { supabase } from './supabase.js'
+import { hasSupabaseConfig, supabase, supabaseConfigError } from './supabase.js'
 
 const TILE_SVGS = [
   `<svg class="tile-scene" viewBox="0 0 900 520" preserveAspectRatio="xMidYMid slice"><rect width="900" height="520" fill="#b8c99f"/><path d="M0 330 C190 250 300 356 468 274 C610 206 740 294 900 210 V520 H0Z" fill="#315f43"/><path d="M0 412 C180 364 320 424 500 370 C660 318 760 370 900 330 V520 H0Z" fill="#183f2f"/><path d="M170 286 H420 V380 H170Z" fill="#fffaf0" opacity="0.76"/><path d="M140 288 L294 190 L450 288Z" fill="#6b563f"/></svg>`,
@@ -20,6 +20,11 @@ const labelFor = (slug = '') => CATEGORY_LABELS[slug] || text(slug).replace(/-/g
 function setText(id, value) {
   const el = document.getElementById(id)
   if (el && value) el.textContent = value
+}
+
+function showFormSuccess(contactForm) {
+  contactForm.style.display = 'none'
+  document.getElementById('form-success')?.classList.add('show')
 }
 
 function safeHTML(value) {
@@ -80,10 +85,17 @@ function applyTiles(tiles) {
     return `
       <article class="work-tile ${tile.is_wide ? 'wide' : ''} reveal" data-cat="${safeHTML(category)}" data-title="${safeHTML(tile.title)}" data-label="${safeHTML(label)}">
         ${TILE_SVGS[index % TILE_SVGS.length]}
-        <div class="tile-content">
-          <span class="tile-cat">${safeHTML(label)}</span>
-          <h3 class="tile-name">${safeHTML(tile.title)}</h3>
-          <p class="tile-desc">${safeHTML(description)}</p>
+        <div class="tile-always">
+          <div class="tile-cat">${safeHTML(label)}</div>
+          <div class="tile-name">${safeHTML(tile.title)}</div>
+        </div>
+        <div class="tile-info">
+          <div class="tile-cat">${safeHTML(label)}</div>
+          <div class="tile-name">${safeHTML(tile.title)}</div>
+          <div class="tile-desc">${safeHTML(description)}</div>
+        </div>
+        <div class="tile-play">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(244,241,236,0.9)"><polygon points="5 3 19 12 5 21 5 3"/></svg>
         </div>
       </article>`
   }).join('')
@@ -107,15 +119,21 @@ function applyServices(services) {
   observeReveals()
 }
 
+function doFilter(filter, button) {
+  document.querySelectorAll('.filter-tab, [data-filter]').forEach((tab) => {
+    tab.classList.toggle('active', tab === button || tab.dataset.filter === filter)
+  })
+
+  document.querySelectorAll('.work-tile').forEach((tile) => {
+    const isVisible = filter === 'all' || tile.dataset.cat === filter
+    tile.hidden = !isVisible
+    tile.style.display = isVisible ? '' : 'none'
+  })
+}
+
 function bindFilters() {
   document.querySelectorAll('[data-filter]').forEach((button) => {
-    button.addEventListener('click', () => {
-      const filter = button.dataset.filter
-      document.querySelectorAll('[data-filter]').forEach((tab) => tab.classList.toggle('active', tab === button))
-      document.querySelectorAll('.work-tile').forEach((tile) => {
-        tile.hidden = filter !== 'all' && tile.dataset.cat !== filter
-      })
-    })
+    button.addEventListener('click', () => doFilter(button.dataset.filter, button))
   })
 }
 
@@ -139,7 +157,11 @@ function closeModal() {
 
 function bindWorkTiles() {
   document.querySelectorAll('.work-tile').forEach((tile) => {
-    tile.addEventListener('click', () => openModal(tile.dataset.title, tile.dataset.label))
+    const title = tile.dataset.title || tile.querySelector('.tile-name')?.textContent?.trim() || ''
+    const label = tile.dataset.label || tile.querySelector('.tile-cat')?.textContent?.trim() || labelFor(tile.dataset.cat)
+    tile.dataset.title = title
+    tile.dataset.label = label
+    tile.addEventListener('click', () => openModal(title, label))
   })
 }
 
@@ -169,32 +191,49 @@ function observeReveals() {
   reveals.forEach((el) => observer.observe(el))
 }
 
+async function handleSubmit(event) {
+  event.preventDefault()
+
+  const contactForm = event.currentTarget || document.getElementById('contact-form')
+  if (!contactForm?.checkValidity()) {
+    contactForm?.reportValidity()
+    return
+  }
+
+  const data = Object.fromEntries(new FormData(contactForm))
+  const accessKey = window.WEB3FORMS_KEY
+
+  if (!accessKey) {
+    showFormSuccess(contactForm)
+    return
+  }
+
+  try {
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ access_key: accessKey, ...data }),
+    })
+
+    if (response.ok) showFormSuccess(contactForm)
+  } catch (error) {
+    console.error('Form submission error:', error)
+  }
+}
+
 function bindContactForm() {
   const contactForm = document.getElementById('contact-form')
   if (!contactForm) return
 
-  contactForm.addEventListener('submit', async (event) => {
-    event.preventDefault()
-    const data = Object.fromEntries(new FormData(contactForm))
-
-    try {
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ access_key: window.WEB3FORMS_KEY, ...data }),
-      })
-
-      if (response.ok) {
-        contactForm.style.display = 'none'
-        document.getElementById('form-success')?.classList.add('show')
-      }
-    } catch (error) {
-      console.error('Form submission error:', error)
-    }
-  })
+  contactForm.addEventListener('submit', handleSubmit)
 }
 
 async function hydrateSite() {
+  if (!hasSupabaseConfig) {
+    console.info(supabaseConfigError)
+    return
+  }
+
   try {
     const [{ data: settings }, { data: tiles }, { data: services }] = await Promise.all([
       supabase.from('site_settings').select('*').maybeSingle(),
@@ -209,6 +248,11 @@ async function hydrateSite() {
     console.error('Error loading site content:', error)
   }
 }
+
+window.doFilter = doFilter
+window.openModal = openModal
+window.closeModal = closeModal
+window.handleSubmit = handleSubmit
 
 bindFilters()
 bindWorkTiles()
