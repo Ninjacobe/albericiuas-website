@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AlbericiUAS — Aerial Cinematography</title>
+<title>AlbericiUAS — Aerial Views with a Natural Sense of Place</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
@@ -774,6 +774,232 @@ footer {
 }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
+
+/* ─── SIMPLIFIED GARDEN-INSPIRED REFRESH ─── */
+:root {
+  --paper: #fbfaf4;
+  --parchment: #f0eadc;
+  --linen: #e7ddc7;
+  --ash: #a39b87;
+  --stone: #706b5c;
+  --earth: #243f2b;
+  --ink: #162318;
+  --umber: #7a5b32;
+  --sage: #6f7f59;
+  --horizon: #d7ccb6;
+  --rule: rgba(36, 63, 43, 0.14);
+  --leaf: #2f5a3a;
+  --leaf-soft: #dfe8d5;
+  --sun: #c5a15c;
+}
+
+body {
+  background:
+    radial-gradient(circle at 8% 8%, rgba(223, 232, 213, 0.8), transparent 24rem),
+    linear-gradient(180deg, #fbfaf4 0%, #f7f2e8 100%);
+  color: var(--ink);
+}
+
+nav {
+  position: sticky;
+  top: 0;
+  padding: 1.05rem 5vw;
+  background: rgba(251, 250, 244, 0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(36, 63, 43, 0.1);
+}
+.nav-logo { color: var(--leaf); letter-spacing: 0.16em; }
+.nav-links { gap: 2rem; }
+.nav-links a, .nav-cta { color: var(--earth); letter-spacing: 0.13em; }
+.nav-cta {
+  border: 1px solid rgba(47, 90, 58, 0.24);
+  border-radius: 999px;
+  padding: 0.65rem 1rem;
+  background: rgba(223, 232, 213, 0.45);
+}
+.nav-cta:hover { background: var(--leaf); border-color: var(--leaf); color: var(--paper); }
+
+#hero {
+  min-height: auto;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  padding: clamp(3rem, 6vw, 6rem) 5vw 4rem;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.hero-left {
+  border-right: none;
+  justify-content: center;
+  padding: 2rem 0;
+}
+.hero-eyebrow, .section-kicker {
+  color: var(--leaf);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+}
+.hero-title {
+  font-size: clamp(3.1rem, 6.6vw, 7rem);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+.hero-title em, .section-heading em, .contact-intro em { color: var(--leaf); }
+.hero-body {
+  max-width: 520px;
+  color: var(--stone);
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+.hero-actions { gap: 1rem; flex-wrap: wrap; margin-top: 2.4rem; }
+.btn-dark, .btn-submit {
+  background: var(--leaf);
+  border-radius: 999px;
+  padding: 0.95rem 1.45rem;
+  letter-spacing: 0.13em;
+}
+.btn-dark:hover, .btn-submit:hover { background: var(--earth); }
+.link-underline {
+  border: 1px solid rgba(47, 90, 58, 0.2);
+  border-radius: 999px;
+  padding: 0.9rem 1.35rem;
+  color: var(--earth);
+  background: rgba(255,255,255,0.45);
+}
+.link-underline:hover { background: var(--leaf-soft); border-color: var(--leaf); }
+
+.hero-right {
+  min-height: clamp(420px, 58vw, 680px);
+  border-radius: clamp(1.25rem, 3vw, 2.4rem);
+  box-shadow: 0 28px 80px rgba(36, 63, 43, 0.18);
+  background: var(--leaf-soft);
+}
+.hero-right::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 45%, rgba(22, 35, 24, 0.48));
+  pointer-events: none;
+}
+.hero-caption, .hero-meta { z-index: 1; }
+
+.stats-row {
+  max-width: 1180px;
+  margin: 0 auto 2rem;
+  padding: 0 5vw;
+  border: none;
+  gap: 0.75rem;
+}
+.stat-cell {
+  border: 1px solid var(--rule);
+  border-radius: 1rem;
+  padding: 1.4rem;
+  background: rgba(255, 255, 255, 0.42);
+}
+.stat-cell:last-child { border-right: 1px solid var(--rule); }
+.stat-num { color: var(--leaf); font-size: 1.9rem; }
+.stat-label { letter-spacing: 0.13em; }
+
+.section-header {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 5rem 5vw 2rem;
+  border-bottom: none;
+  align-items: end;
+}
+.section-heading {
+  max-width: 680px;
+  font-size: clamp(2rem, 4vw, 4.3rem);
+  letter-spacing: -0.035em;
+}
+
+.filter-bar {
+  max-width: 1180px;
+  margin: 0 auto 1.5rem;
+  padding: 0 5vw;
+  border-bottom: none;
+  gap: 0.55rem;
+}
+.filter-tab {
+  border: 1px solid rgba(47, 90, 58, 0.16);
+  border-radius: 999px;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.46);
+  letter-spacing: 0.11em;
+}
+.filter-tab.active, .filter-tab:hover { color: var(--paper); background: var(--leaf); border-color: var(--leaf); }
+
+.grid-work {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 5vw 5rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+.work-tile {
+  border: none;
+  border-radius: 1.25rem;
+  box-shadow: 0 16px 42px rgba(36, 63, 43, 0.12);
+  background: var(--leaf-soft);
+}
+.work-tile.wide { aspect-ratio: 16/7; }
+.tile-info { opacity: 1; background: linear-gradient(to top, rgba(22,35,24,0.82), rgba(22,35,24,0.08)); }
+.tile-always { display: none; }
+.tile-play { display: none; }
+.tile-cat { color: rgba(251, 250, 244, 0.74); }
+.tile-name { font-size: clamp(1.2rem, 2vw, 1.75rem); }
+.tile-desc { color: rgba(251, 250, 244, 0.78); }
+
+#about, #contact { background: rgba(223, 232, 213, 0.5); }
+.about-layout, .contact-layout {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 5vw 5rem;
+  gap: 1.25rem;
+  min-height: auto;
+}
+.about-text, .contact-left, .contact-right {
+  border: 1px solid var(--rule);
+  border-radius: 1.4rem;
+  padding: clamp(2rem, 5vw, 4rem);
+  background: rgba(251, 250, 244, 0.72);
+}
+.about-pull { border-left-color: var(--leaf); }
+.about-visual {
+  border-radius: 1.4rem;
+  background: linear-gradient(135deg, var(--leaf-soft), var(--parchment));
+  min-height: 460px;
+}
+.about-badge-block {
+  background: rgba(251, 250, 244, 0.86);
+  border: 1px solid var(--rule);
+  border-radius: 1rem;
+}
+
+.services-list {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 5vw 5rem;
+  display: grid;
+  gap: 0.85rem;
+}
+.service-row {
+  grid-template-columns: 2.5rem 1fr 1.7fr;
+  gap: 1.5rem;
+  border: 1px solid var(--rule);
+  border-radius: 1.15rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.42);
+}
+.service-row:hover { background: rgba(223, 232, 213, 0.48); }
+.service-title-col em { color: var(--leaf); }
+.service-tags { display: none; }
+.tag { border-color: rgba(47, 90, 58, 0.2); }
+
+.form-field:first-of-type, .form-row-two:first-of-type { border-top: none; }
+.form-field input, .form-field textarea, .form-field select { font-family: 'Jost', sans-serif; }
+.form-submit-row { gap: 1rem; }
+footer { background: var(--earth); }
+
 /* ─── RESPONSIVE ─── */
 @media (max-width: 960px) {
   #hero { grid-template-columns: 1fr; }
@@ -839,14 +1065,14 @@ footer {
 <!-- ── HERO ── -->
 <section id="hero">
   <div class="hero-left">
-    <p class="hero-eyebrow" id="site-hero-eyebrow">Aerial Cinematography &amp; UAS Operations</p>
-    <h1 class="hero-title" id="site-hero-title">The world<br>looks different<br>from <em>above.</em></h1>
+    <p class="hero-eyebrow" id="site-hero-eyebrow">Aerial Imaging · Places in Season</p>
+    <h1 class="hero-title" id="site-hero-title">Landscape-minded<br>aerial work for<br><em>memorable places.</em></h1>
     <p class="hero-body" id="site-hero-body">
-      Professional drone videography that captures landscapes, properties, and events with the patience and craft they deserve. Every flight planned. Every frame intentional.
+      A simplified, editorial approach to drone photography and video for gardens, properties, events, and open landscapes — composed with calm pacing, natural color, and a clear sense of place.
     </p>
     <div class="hero-actions">
-      <a href="#work" class="btn-dark">View the Work</a>
-      <a href="#contact" class="link-underline">Request a Quote</a>
+      <a href="#work" class="btn-dark">Explore Work</a>
+      <a href="#contact" class="link-underline">Plan a Flight</a>
     </div>
   </div>
 
@@ -904,10 +1130,10 @@ footer {
       <ellipse cx="620" cy="140" rx="100" ry="16" fill="rgba(244,241,236,0.12)"/>
     </svg>
 
-    <div class="hero-caption">Aerial — Pacific Northwest</div>
+    <div class="hero-caption">Aerial Field Study</div>
     <div class="hero-meta">
-      <span>4K / Part 107</span>
-      <span>AlbericiUAS</span>
+      <span>FAA Part 107</span>
+      <span>Natural Light</span>
     </div>
   </div>
 </section>
@@ -916,7 +1142,7 @@ footer {
 <div class="stats-row">
   <div class="stat-cell reveal">
     <span class="stat-num">4K</span>
-    <span class="stat-label">Cinema Resolution</span>
+    <span class="stat-label">Quiet, Detailed Capture</span>
   </div>
   <div class="stat-cell reveal">
     <span class="stat-num">FAA</span>
@@ -924,19 +1150,19 @@ footer {
   </div>
   <div class="stat-cell reveal">
     <span class="stat-num">100+</span>
-    <span class="stat-label">Projects Completed</span>
+    <span class="stat-label">Documented Places</span>
   </div>
   <div class="stat-cell reveal">
     <span class="stat-num">NW</span>
-    <span class="stat-label">Nationwide Travel</span>
+    <span class="stat-label">Travel Available</span>
   </div>
 </div>
 
 <!-- Work -->
 <section id="work">
   <div class="section-header">
-    <span class="section-kicker">Portfolio</span>
-    <h2 class="section-heading">Selected <em>Work</em></h2>
+    <span class="section-kicker">Featured Views</span>
+    <h2 class="section-heading">A calmer way to <em>see the site</em></h2>
   </div>
 
   <div class="filter-bar">
@@ -1229,8 +1455,8 @@ footer {
 <!-- Services -->
 <section id="services">
   <div class="section-header reveal">
-    <span class="section-kicker">Capabilities</span>
-    <h2 class="section-heading">What We <em>Do</em></h2>
+    <span class="section-kicker">Services</span>
+    <h2 class="section-heading">Simple packages for <em>clear outcomes</em></h2>
   </div>
   <div class="services-list">
 
@@ -1295,13 +1521,13 @@ footer {
 <!-- Contact -->
 <section id="contact">
   <div class="section-header reveal">
-    <span class="section-kicker">Contact</span>
-    <h2 class="section-heading">Start a <em>Conversation</em></h2>
+    <span class="section-kicker">Plan Your Flight</span>
+    <h2 class="section-heading">Tell us what should be <em>seen from above</em></h2>
   </div>
   <div class="contact-layout">
     <div class="contact-left reveal">
       <p class="contact-intro">
-        Tell us about your project.<br>We'll figure out the right<br>approach <em>together.</em>
+        Share the location, the season, and the story.<br>We'll keep the flight plan <em>simple.</em>
       </p>
       <div class="contact-detail-list">
         <div class="contact-detail">
