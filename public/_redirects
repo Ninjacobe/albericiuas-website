@@ -1,0 +1,3 @@
+# Cloudflare Pages: keep direct /admin links loading the admin app.
+/admin /admin/index.html 200
+/admin/* /admin/index.html 200
